@@ -1,0 +1,11 @@
+div(ptz--tabs-scope='pub-edit')
+  .ptz--theme-0
+    = form_tag hub_item_rels_url, remote: true, data: { type: :json, role: 'hub-item-rels--form' } do
+      = hidden_field_tag :pub_type, @pub.class
+      = hidden_field_tag :pub_id,   @pub.id
+      = hidden_field_tag :hub_id
+      = hidden_field_tag :checked
+
+    - pub_used_hubs_ids = @pub.hub_item_rels.pluck(:hub_id)
+    ol.the-sortable-tree.the-sortable-tree--list(data={ max_levels: 5 })
+      = sortable_tree @hubs, render_module: HubItemsRelsManagerHelper, pub_used_hubs_ids: pub_used_hubs_ids

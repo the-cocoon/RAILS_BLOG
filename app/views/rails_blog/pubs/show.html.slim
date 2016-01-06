@@ -1,0 +1,25 @@
+- content_for :title do
+  = @pub.title
+
+= render template: 'app/layouts/items/header_footer'
+
+- content_for :left_sidebar do
+  .m20= render template: 'app/common/index_left_sidebar'
+
+= render template: 'app/common/admin/controls/pub'
+
+- if @pub.editor_type == 'ptz_editor'
+  - content_for :css_addons do
+    style(type="text/css")
+      | .highlight{ background: #272822; color: #fff; padding: 20px; max-width: 900px; overflow: auto; }
+      | .highlighttable{ width: 100%; }
+      | .highlighttable td { padding: 0 !important }
+      | .highlighttable td.linenos{ width: 1%; color: #bbb; padding: 20px 5px !important; background: #033a8d; }
+      = ::ColoredCode.with_pygments_css(:monokai).noendl
+
+.m20
+  .ptz--theme-0
+    .ptz--typo-0
+      h1= @pub.title
+      .mb10= raw @pub.intro
+      .mb10= raw @pub.content

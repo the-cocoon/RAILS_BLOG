@@ -1,0 +1,15 @@
+- content_for :title do
+  = @hub.title
+
+= render template: 'app/layouts/items/header_footer'
+
+- content_for :left_sidebar do
+  .m20= render template: 'common/index_left_sidebar'
+
+.m20
+  - if current_user && current_user.admin?
+    .m20
+      = link_to 'Редактировать', [:edit, @hub], class: 'ptz--btn mr20'
+      = link_to 'Порядок публикаций', [:ordering, @hub], class: 'ptz--btn'
+
+  = render template: 'pubs/list', locals: { pubs: @pub_items }

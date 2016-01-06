@@ -1,0 +1,48 @@
+- content_for :title do
+  | Правка: #{ @pub.title }
+
+= render template: 'layouts/items/header_footer'
+
+- if @pub.editor_type == 'ckeditor'
+  = render template: 'common/editor/ckeditor'
+
+- if @pub.editor_type == 'ptz_editor'
+  = render template: 'common/editor/ptz_editor'
+
+- content_for :left_sidebar do
+
+  .ptz--theme-0.m20
+    div= link_to 'Кабинет',  cabinet_path, class: 'ptz--btn ptz--size-16 w100p'
+    hr.ptz--hr-0.mt20.mb20
+    div= link_to 'Просмотр', @pub, class: 'ptz--btn ptz--size-16 w100p'
+    hr.ptz--hr-0.mt20.mb20
+    div= link_to 'Публикации', manage_pubs_path, class: 'ptz--btn ptz--size-16 w100p'
+
+.m20
+  .mb30.fs22 Редактировать Публикацию
+
+  = render partial: 'notifications/form', locals: { object: @pub }
+
+  .ptz--tabs(ptz--tabs-scope='pub-edit')
+    .ptz--tabs--holder
+      .ptz--tabs--item.ptz--tabs--active(ptz--tab-id='form') Основные данные
+      .ptz--tabs--item(ptz--tab-id='main_image') Картинка
+      .ptz--tabs--item(ptz--tab-id='hubs') Разделы
+      .ptz--tabs--item(ptz--tab-id='seo') SEO
+      .ptz--tabs--item(ptz--tab-id='slug') ЧПУ
+      .ptz--tabs--item(ptz--tab-id='rel-products') Товары +
+      .ptz--tabs--item(ptz--tab-id='rel-pubs') Публиации +
+    .mt20.mb20
+      .ptz--tabs--content-item.ptz--tabs--active(ptz--tab-content='form')
+        .ptz--theme-0= render template: 'pubs/edit/form'
+      .ptz--tabs--content-item(ptz--tab-content='main_image')
+        .ptz--theme-0= render template: 'attached_images/edit/attached_images', locals: { item: @pub }
+      .ptz--tabs--content-item(ptz--tab-content='seo')
+        .ptz--theme-0= render template: 'meta_data/edit/meta_data', locals: { item: @pub }
+      .ptz--tabs--content-item(ptz--tab-content='hubs')
+        .ptz--theme-0= render template: 'pubs/edit/hub_items_rels'
+      .ptz--tabs--content-item(ptz--tab-content='slug')
+        .ptz--theme-0= render template: 'pubs/edit/slug'
+      .ptz--tabs--content-item(ptz--tab-content='rel-products')
+      .ptz--tabs--content-item(ptz--tab-content='rel-pubs')
+

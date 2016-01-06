@@ -1,0 +1,26 @@
+- content_for :title do
+  | Hubs#new
+
+= render template: 'layouts/items/header_footer'
+
+- content_for :left_sidebar do
+  .ptz--theme-0.m20
+    div= link_to 'В кабинет', cabinet_path, class: 'ptz--btn ptz--size-16 w100p'
+    hr.ptz--hr-0.mt20.mb20
+    .mb20= link_to 'Разделы',    manage_hubs_path, class: 'ptz--btn ptz--size-16 w100p'
+
+.m20
+  .mb30.fs22 Создать Раздел
+
+  = render partial: 'notifications/form', locals: { object: @hub, format: :json }
+
+  .ptz--theme-0
+    .ptz--div-0.w800
+      = form_for @hub do |f|
+        .m20
+          .mb15
+            = f.label :title, 'Заголовок', class: 'block fs13 mb5'
+            = f.text_field :title, class: 'ptz--input ptz--size-15 w500', data: { role: :hub_title }
+
+          .tal
+            = f.submit 'Создать', class: 'ptz--btn ptz--size-20'

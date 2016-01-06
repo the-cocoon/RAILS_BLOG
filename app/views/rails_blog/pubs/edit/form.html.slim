@@ -1,0 +1,35 @@
+- if @pub.editor_type == 'ckeditor'
+  = render template: 'common/editor/ckeditor'
+
+- if @pub.editor_type == 'ptz_editor'
+  = render template: 'common/editor/ptz_editor'
+
+.w800
+  .ptz--div-0.mb20
+    = form_for @pub do |f|
+      .m20
+        .mb15
+          = f.label :title, 'Заголовок', class: 'block fs13 mb5'
+          = f.text_field :title, class: 'ptz--input ptz--size-15 w500', data: { role: :pub_title }
+
+        .mb25
+          = f.label :raw_intro, 'Вводная', class: 'block fs13 mb5'
+          = f.text_area :raw_intro, id: 'redactor_intro', class: 'ptz--textarea ptz--size-15 ffa', rows: 5
+
+        .mb25
+          = f.label :raw_content, 'Основной контент', class: 'block fs13 mb5'
+          = f.text_area :raw_content, id: 'redactor_content', class: 'ptz--textarea ptz--size-15 ffa', rows: 10
+
+        .mb50
+          = f.label :state, 'Видимость', class: 'block fs13 mb5'
+
+          - options = options_for_select({ 'Черновик' => :draft, 'Опубликовано' => :published }, @pub.state)
+          = f.select :state, options, {}, autocomplete: :off, class: 'ptz--input ptz--select ptz--size-15 w200'
+
+        .tar
+          = f.submit 'Обновить', class: 'ptz--btn ptz--size-20'
+
+  .mt30.mb30.fs18 Прикрепленные файлы
+
+  .mb20= render partial: 'the_storages/form', locals: { storage: @pub }
+  .mb20= render partial: 'the_storages/list', locals: { storage: @pub }

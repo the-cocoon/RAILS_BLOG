@@ -1,0 +1,32 @@
+.ptz--theme-0
+  - if pubs.blank?
+    .ptz--div-0.fs18.p20 Здесь ничего нет
+  - else
+    table.ptz--table-0.w100p.fs16
+      thead.tal
+        tr
+          th.p20.w50
+          th.p20.w100p.br-off = link_to 'Название ↕',        simple_sort_url(:item_title)
+          th.p20.w100p.br-off = link_to 'Типу ↕',            simple_sort_url(:item_type)
+          th.p20.w150.br-off  = link_to 'Дата создания ↕',   simple_sort_url(:item_created_at)
+          th.p20.w150.br-off  = link_to 'Дата публикации ↕', simple_sort_url(:item_published_at)
+
+      tbody
+        - pubs.each do |pub_item|
+          - pub = pub_item.item
+          tr
+            td.p20
+              = link_to pub do
+                = image_tag pub.main_image_url(:v640x480), style: 'width:120px'
+            td.p20.lh120
+              = link_to pub.title, pub
+            td.p20
+              = t pub_item.item_type, scope: :pubs
+            td.p20.lh120
+              = raw I18n.l(pub.created_at, format: raw("%-d %B %Y %H:%M"))
+            td.p20.lh120
+              - if pub.published_at.present?
+                - date = pub.published_at
+                = raw I18n.l(date, format: raw("%-d %B %Y %H:%M"))
+              - else
+                | &mdash;

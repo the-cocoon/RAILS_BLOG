@@ -1,0 +1,41 @@
+- content_for :title do
+  | Управлять Разделами
+
+= render template: 'layouts/items/header_footer'
+
+- content_for :left_sidebar do
+
+  .ptz--theme-0.m20
+    div= link_to 'В кабинет', cabinet_path, class: 'ptz--btn ptz--size-16 w100p'
+    hr.ptz--hr-0.mt20.mb20
+    div= link_to 'Новый раздел', new_hub_path, class: 'ptz--btn ptz--size-16 w100p'
+
+.ptz--theme-0.m20.mt25
+  .fs20.mb50 Разделы
+
+  .clearfix.mb25.fs15
+    .pull-left
+      = link_to 'Структура', tree_hubs_path
+    .pull-right
+      = render template: 'app/common/pages_and_reset'
+
+  table.ptz--table-0.fs16
+    thead.tal
+      tr
+        th.p20.br-off.w50   = link_to 'ID ↕',       simple_sort_url(:id)
+        th.p20.br-off.w100p = link_to 'Название ↕', simple_sort_url(:title)
+        th.p20.br-off.w150  = link_to 'Статус ↕',   simple_sort_url(:state)
+        th.p20.br-off.w50   Правка
+
+    tbody
+      - @hubs.each do |hub|
+        tr
+          td.p20.w50
+            = hub.id
+          td.p20.w100p
+            = link_to hub.title, hub
+          td.p20.w150
+            = t hub.state, scope: :state
+          td.p20.w150.tac
+            = link_to [:edit, hub] do
+              i.fa.fa-edit
