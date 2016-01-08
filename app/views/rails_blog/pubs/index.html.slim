@@ -1,19 +1,14 @@
 - content_for :title do
-  | stereo-shop.ru
+  | Rails Blog
 
-= render template: 'layouts/items/header_footer'
+= render template: 'app/layouts/items/header_footer'
 
 - content_for :left_sidebar do
-  .m20= render template: 'common/index_left_sidebar'
+  .m20= render template: 'app/common/index_left_sidebar'
 
 .m20
-  .tar.fs15.mb10
-    span.mr40
-      span.mr10 элементов на стр:
-      - %w[ 5 10 20 50 100 125 ].each do |num|
-        span.mr10= link_to num, url_for(per_page: num)
-
-    = link_to 'Сбросить сортировку', url_for( reset_simple_sort )
+  .tar.fs15.mb20
+    = render template: 'app/common/pages_and_reset'
 
   = render template: 'pubs/list', locals: { pubs: @pub_items }
   = render template: 'common/paginator', locals: { items: @pub_items }
