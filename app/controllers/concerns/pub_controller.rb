@@ -22,7 +22,9 @@ module PubController
   # def index; end
 
   def show
-    @klass.increment_counter(:view_counter, @pub.id) if @pub.published?
+    if @pub.published? && !@pub.owner?(current_user)
+      @klass.increment_counter(:view_counter, @pub.id)
+    end
   end
 
   def print
