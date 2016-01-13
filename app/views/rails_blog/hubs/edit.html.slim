@@ -17,7 +17,7 @@
 .m20
   .mb30.fs22 Редактировать Раздел
 
-  = render partial: 'notifications/form', locals: { object: @hub }
+  = render partial: 'notifications/form', locals: { object: @hub, format: :json }
 
   .ptz--tabs(ptz--tabs-scope='pub-edit')
     .ptz--tabs--holder

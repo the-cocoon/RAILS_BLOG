@@ -1,6 +1,13 @@
 # include ::RailsBlog::PubContentProcessing
 module RailsBlog
   module PubContentProcessing
+
+    extend ActiveSupport::Concern
+
+    included do
+      validates :title, :slug, presence: true
+    end
+
     def content_processing_for current_user
       return nil unless current_user
 

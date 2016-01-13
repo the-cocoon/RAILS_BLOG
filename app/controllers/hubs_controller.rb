@@ -11,7 +11,7 @@ class HubsController < ApplicationController
   def show
     @hubs = @hub.children.published.nested_set
 
-    @pub_items = HubItemRel
+    @hub_items = HubItemRel
                   .where(hub: @hub)
                   .includes(:item)
                   .published
@@ -30,22 +30,27 @@ class HubsController < ApplicationController
 
   def create
     @hub = current_user.hubs.new(hub_params)
+    @hub.content_processing_for(current_user)
 
     if @hub.save
+      @hub.try(:keep_consistency_after_create!)
       redirect_to url_for([:edit, @hub]), notice: "Раздел создан"
     else
-      render template: :new
+      render 'hubs/new'
     end
   end
 
   def edit; end
 
   def update
-    if @hub.update(hub_params)
-      @hub.send "#{ @hub_state }!" if @hub_state
+    @hub.assign_attributes(hub_params)
+    @hub.content_processing_for(current_user)
+
+    if @hub.save
+      @hub.try(:keep_consistency_after_update!)
       redirect_to url_for([:edit, @hub]), notice: "Раздел обновлен"
     else
-      @hub.update_attachment_fields(:main_image)
+      render 'hubs/edit'
     end
   end
 
@@ -60,7 +65,7 @@ class HubsController < ApplicationController
   end
 
   def ordering
-    @pub_items = @hub.hub_item_rels.reversed_nested_set
+    @hub_items = @hub.hub_item_rels.reversed_nested_set
   end
 
   private
@@ -71,7 +76,7 @@ class HubsController < ApplicationController
   end
 
   def set_hub
-    @hub = @pub
+    @hub = @hub
   end
 
   def hub_params
@@ -83,12 +88,13 @@ class HubsController < ApplicationController
       :user_id,
       :slug,
 
-      :main_image,
       :optgroup,
 
       :title,
       :raw_intro,
-      :raw_content
+      :raw_content,
+
+      :state
     )
   end
 end
