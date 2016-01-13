@@ -76,7 +76,7 @@ class HubsController < ApplicationController
   end
 
   def set_hub
-    @hub = @hub
+    @hub = @pub
   end
 
   def hub_params
