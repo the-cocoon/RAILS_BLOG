@@ -6,8 +6,8 @@ class PubsController < ApplicationController
   layout 'rails_blog_layout'
 
   def index
-    @hub  = Hub.published.friendly_first(:main)
-    @hubs = Hub.nested_set.roots.published
+    @hub       = Hub.published.friendly_first(:main)
+    @root_hubs = Hub.nested_set.roots.published
 
     sub_sql = HubItemRel
                 .published

@@ -28,9 +28,12 @@
     .mt20.mb20
       .ptz--tabs--content-item.ptz--tabs--active(ptz--tab-content='form')
         .ptz--theme-0= render template: 'hubs/edit/form'
-      .ptz--tabs--content(ptz--tab-content='images')
-        .ptz--theme-0= render template: 'attached_images/edit/attached_images', locals: { item: @hub }
+
+      .ptz--tabs--content-item(ptz--tab-content='images')
+        .ptz--theme-0.w800= render template: 'attached_images/edit/attached_images', locals: { item: @hub }
+
       .ptz--tabs--content-item(ptz--tab-content='seo')
         .ptz--theme-0= render template: 'meta_data/edit/meta_data', locals: { item: @hub }
+
       .ptz--tabs--content-item(ptz--tab-content='slug')
         .ptz--theme-0= render template: 'hubs/edit/slug'
