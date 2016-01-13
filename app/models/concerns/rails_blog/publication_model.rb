@@ -17,6 +17,7 @@ module RailsBlog
       include ::TheStorages::Storage
       include ::FriendlyIdPack::Base
       include ::AttachedImages::ItemModel
+      include ::TheCommentsBase::Commentable
 
       belongs_to :user
       has_many :hub_item_rels, as: :item
