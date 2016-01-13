@@ -5,7 +5,9 @@
 
 //= require log_js
 //= require JODY/base
-//= require app/jody_notificator_init
+
+//= require app/scripts
+
 //= require jquery.data-role-selector
 
 //= require notifications/vendors/toastr
@@ -33,3 +35,4 @@
 //= require rails_blog/hub_items_rels
 
 //= require rails_blog/application_initializer
+//= require app/initializer
