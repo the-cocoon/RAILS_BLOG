@@ -6,7 +6,7 @@
 //= require log_js
 //= require JODY/base
 
-//= require app/scripts
+//= require app_view/scripts
 
 //= require jquery.data-role-selector
 
@@ -35,4 +35,4 @@
 //= require rails_blog/hub_items_rels
 
 //= require rails_blog/application_initializer
-//= require app/initializer
+//= require app_view/initializer

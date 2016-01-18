@@ -1,10 +1,7 @@
 - content_for :title do
   = @hub.title
 
-= render template: 'app/layouts/items/header_footer'
-
-- content_for :left_sidebar do
-  .m20= render template: 'common/index_left_sidebar'
+= render template: 'app_view/layouts/items/header_footer'
 
 .m20
   - if current_user && current_user.admin?
