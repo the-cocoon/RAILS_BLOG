@@ -65,7 +65,7 @@ class HubsController < ApplicationController
   end
 
   def ordering
-    @hub_items = @hub.hub_item_rels.reversed_nested_set
+    @pub_items = @hub.hub_item_rels.reversed_nested_set
   end
 
   private
