@@ -11,8 +11,8 @@ class HubsController < ApplicationController
   def show
     @hubs = @hub.children.published.nested_set
 
-    @hub_items = HubItemRel
-                  .where(hub: @hub)
+    @hub_items = PubCategoryItemRel
+                  .where(category: @hub)
                   .includes(:item)
                   .published
                   .reversed_nested_set
@@ -65,7 +65,7 @@ class HubsController < ApplicationController
   end
 
   def ordering
-    @pub_items = @hub.hub_item_rels.reversed_nested_set
+    @pub_items = @hub.pub_category_item_rels.reversed_nested_set
   end
 
   private

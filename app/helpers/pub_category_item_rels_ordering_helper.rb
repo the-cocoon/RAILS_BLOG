@@ -6,7 +6,7 @@
 # Prepare your data on server side for rendering
 # or use h.html_escape(node.content)
 # for escape potentially dangerous content
-module HubItemsRelsOrderingHelper
+module PubCategoryItemRelsOrderingHelper
   module Render
     class << self
       attr_accessor :h, :options
@@ -48,10 +48,10 @@ module HubItemsRelsOrderingHelper
         node = options[:node]
         ns   = options[:namespace]
         url = h.url_for(:controller => options[:klass].pluralize, :action => :show, :id => node)
-        title_field = options[:title]
+        title = node.send( options[:title] )
 
         "<div class='fs15'>
-          #{ h.link_to(node.send(title_field), url) }
+          #{ h.link_to(title, url) }
         </div>"
       end
 

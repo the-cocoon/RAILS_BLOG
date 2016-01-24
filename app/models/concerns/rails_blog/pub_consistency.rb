@@ -5,6 +5,9 @@ module RailsBlog
     # included do; end
     # class_methods do; end
 
+    # Post.all.each{|x| x.keep_consistency! }
+    # Page.all.each{|x| x.keep_consistency! }
+
     def keep_consistency!
       keep_hub_items_consistency!
     end
@@ -26,7 +29,7 @@ module RailsBlog
     # #############################
 
     def keep_hub_items_consistency!
-      if hub_item_rels.any?
+      if pub_category_item_rels.any?
         keep_consistency_after_update!
       else
         keep_consistency_after_create!
@@ -34,7 +37,7 @@ module RailsBlog
     end
 
     def keep_hub_items_consistency_after_create!
-      hub_item_rels.create(
+      pub_category_item_rels.create(
         item: self,
         item_title: self.title,
         item_state: self.state,
@@ -45,7 +48,7 @@ module RailsBlog
     end
 
     def keep_hub_items_consistency_after_update!
-      hub_item_rels.update_all(
+      pub_category_item_rels.update_all(
         item_title: self.title,
         item_state: self.state,
         item_created_at:   self.created_at,
@@ -55,7 +58,7 @@ module RailsBlog
     end
 
     def keep_hub_items_consistency_after_destroy!
-      hub_item_rels.delete_all
+      pub_category_item_rels.delete_all
     end
   end
 end

@@ -20,8 +20,19 @@ module RailsBlog
       include ::TheCommentsBase::Commentable
 
       belongs_to :user
-      has_many :hub_item_rels, as: :item
-      has_many :hubs, through: :hub_item_rels, as: :item
+
+      ########################################
+      # Relations
+      # Publications categorization
+      ########################################
+      has_many :pub_category_item_rels,
+        as: :item
+
+      has_many :hubs,
+        through: :pub_category_item_rels,
+        source: :category,
+        source_type: :Hub
+      ########################################
 
       before_save :set_published_at
 

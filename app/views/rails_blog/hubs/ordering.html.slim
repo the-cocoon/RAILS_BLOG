@@ -14,5 +14,5 @@
   .fs20.mb30 Порядок публикаций в разделе: "#{ @hub.title }"
 
   .ptz--theme-0
-    ol.the-sortable-tree.the-sortable-tree--list(data={ max_levels: 1, rebuild_url: rebuild_hub_item_rels_path })
-      = sortable_tree @pub_items, title: :item_title, render_module: HubItemsRelsOrderingHelper
+    ol.the-sortable-tree.the-sortable-tree--list(data={ max_levels: 1, rebuild_url: rebuild_pub_category_item_rels_path })
+      = sortable_tree @pub_items, title: :item_title, render_module: PubCategoryItemRelsOrderingHelper

@@ -9,7 +9,7 @@ module RailsBlog
 
   module DefaultRoutes
     def rails_blog_routes
-      resources :hub_item_rels do
+      resources :pub_category_item_rels do
         collection do
           post :rebuild
         end

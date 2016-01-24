@@ -6,7 +6,7 @@
 # Prepare your data on server side for rendering
 # or use h.html_escape(node.content)
 # for escape potentially dangerous content
-module HubItemsRelsManagerHelper
+module PubCategoryItemRelsManagerHelper
   module Render
     class << self
       attr_accessor :h, :options
@@ -14,7 +14,7 @@ module HubItemsRelsManagerHelper
       def render_node(h, options)
         node = options[:node]
         @h, @options   = h, options
-        @used_hubs_ids = Array.wrap options[:pub_used_hubs_ids]
+        @selected_pub_categories = Array.wrap options[:selected_pub_categories]
 
         "
           <li data-node-id='#{ node.id }'>
@@ -39,14 +39,17 @@ module HubItemsRelsManagerHelper
       end
 
       def checkbox
-        node    = options[:node]
-        hub_id  = "hub_#{ node.id }"
-        checked = @used_hubs_ids.include?(node.id)
-        data    = { id: node.id, role: 'hub-item-rels--checkbox' }
+        node = options[:node]
+        _id  = [ node.class, node.id  ].join '_'
+
+        category_id = _id
+
+        checked = @selected_pub_categories.include?([node.id, node.class.to_s])
+        data    = { 'category-id' => node.id, 'category-type' => node.class.to_s }
 
         "<div class='mr15'>
-          #{ h.check_box_tag hub_id, 1, checked, { autocomplete: :off, data: data } }
-          #{ h.label_tag hub_id, '', for: hub_id }
+          #{ h.check_box_tag category_id, 1, checked, { autocomplete: :off, data: data, class: 'js--pub-category-item-rels--checkbox' } }
+          #{ h.label_tag category_id, '', for: category_id }
         </div>"
       end
 
