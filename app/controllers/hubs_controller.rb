@@ -64,10 +64,6 @@ class HubsController < ApplicationController
     @hubs = current_user.hubs.for_manage.nested_set
   end
 
-  def ordering
-    @pub_items = @hub.pub_category_item_rels.reversed_nested_set
-  end
-
   private
 
   def set_hub_via_pub

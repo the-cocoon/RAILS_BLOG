@@ -1,11 +1,14 @@
 class PubCategoryItemRelsController < ApplicationController
   include ::TheSortableTreeController::ReversedRebuild
 
+  layout 'rails_blog_layout'
+
   before_action :user_require,   except: %w[ ]
   before_action :owner_required, except: %w[ ]
   before_action :admin_require,  except: %w[ ]
 
-  before_action :set_category_pub, except: %w[ rebuild ]
+  before_action :set_category, except: %w[ rebuild ]
+  before_action :set_pub,      except: %w[ rebuild ordering ]
 
   def create
     checked = params[:checked].to_i == 1
@@ -14,22 +17,28 @@ class PubCategoryItemRelsController < ApplicationController
 
   # Restricted area
 
+  def ordering
+    @category_items = @category.pub_category_item_rels.reversed_nested_set
+  end
+
   def create_pub_category_item_rels params
     PubCategoryItemRel.create(category: @category, item: @pub)
     @pub.keep_consistency!
-    render template: 'pub_category_item_rels/create.success.json.jbuilder'
+    render template: 'pub_category_item_rels/json/create.success.json.jbuilder'
   end
 
   def destroy_pub_category_item_rels params
     PubCategoryItemRel.where(category: @category, item: @pub).delete_all
-    render template: 'pub_category_item_rels/destroy.success.json.jbuilder'
+    render template: 'pub_category_item_rels/json/destroy.success.json.jbuilder'
   end
 
-  def set_category_pub
-    @cat_klass = params[:category_type].constantize
-    @category = @cat_klass.find params[:category_id]
+  def set_category
+    @cat_klass = params[:category_type].classify.constantize
+    @category  = @cat_klass.friendly_first params[:category_id]
+  end
 
-    @pub_klass = params[:pub_type].constantize
-    @pub = @pub_klass.find params[:pub_id]
+  def set_pub
+    @pub_klass = params[:pub_type].classify.constantize
+    @pub       = @pub_klass.friendly_first params[:pub_id]
   end
 end

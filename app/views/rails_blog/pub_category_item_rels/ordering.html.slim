@@ -1,5 +1,5 @@
 - content_for :title do
-  | Порядок публикаций в разделе: #{ @hub.title }
+  | Порядок публикаций в разделе: #{ @category.title }
 
 = render template: 'layouts/items/header_footer'
 
@@ -8,11 +8,11 @@
   .ptz--theme-0.m20
     div= link_to 'Главная', root_path, class: 'ptz--btn ptz--size-16 w100p'
     hr.ptz--hr-0.mt20.mb20
-    div= link_to @hub.title, @hub, class: 'ptz--btn ptz--size-16 w100p'
+    div= link_to @category.title, @category, class: 'ptz--btn ptz--size-16 w100p'
 
 .m20.mt25.w800
-  .fs20.mb30 Порядок публикаций в разделе: "#{ @hub.title }"
+  .fs20.mb30 Порядок публикаций в разделе: "#{ @category.title }"
 
   .ptz--theme-0
     ol.the-sortable-tree.the-sortable-tree--list(data={ max_levels: 1, rebuild_url: rebuild_pub_category_item_rels_path })
-      = sortable_tree @pub_items, title: :item_title, render_module: PubCategoryItemRelsOrderingHelper
+      = sortable_tree @category_items, title: :item_title, render_module: PubCategoryItemRelsOrderingHelper

@@ -7,6 +7,6 @@
   - if current_user && current_user.admin?
     .mt20.mb20
       = link_to 'Редактировать', [:edit, @hub], class: 'ptz--btn mr20'
-      = link_to 'Порядок публикаций', [:ordering, @hub], class: 'ptz--btn'
+      = link_to 'Порядок публикаций', pubs_ordering_path(@hub.class, @hub.to_param), class: 'ptz--btn'
 
-  = render template: 'pubs/list', locals: { pubs: @pub_items }
+  = render template: 'pubs/list', locals: { pubs: @hub_items }
