@@ -14,7 +14,7 @@
 # belongs_to :category, polymorphic: true
 # belongs_to :item,     polymorphic: true
 
-class PubCategoryItemRel < ActiveRecord::Base
+class PubCategoryRel < ActiveRecord::Base
   include ::SimpleSort::Base
   include ::Pagination::Base
   include ::TheSortableTree::Scopes

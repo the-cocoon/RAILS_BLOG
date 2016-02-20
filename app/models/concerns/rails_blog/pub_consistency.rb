@@ -29,7 +29,7 @@ module RailsBlog
     # #############################
 
     def keep_hub_items_consistency!
-      if pub_category_item_rels.any?
+      if pub_category_rels.any?
         keep_consistency_after_update!
       else
         keep_consistency_after_create!
@@ -37,7 +37,7 @@ module RailsBlog
     end
 
     def keep_hub_items_consistency_after_create!
-      pub_category_item_rels.create(
+      pub_category_rels.create(
         item: self,
         item_title: self.title,
         item_state: self.state,
@@ -48,7 +48,7 @@ module RailsBlog
     end
 
     def keep_hub_items_consistency_after_update!
-      pub_category_item_rels.update_all(
+      pub_category_rels.update_all(
         item_title: self.title,
         item_state: self.state,
         item_created_at:   self.created_at,
@@ -58,7 +58,7 @@ module RailsBlog
     end
 
     def keep_hub_items_consistency_after_destroy!
-      pub_category_item_rels.delete_all
+      pub_category_rels.delete_all
     end
   end
 end

@@ -1,6 +1,6 @@
 div(ptz--tabs-scope='pub-edit')
   .ptz--theme-0
-    = form_tag pub_category_item_rels_url, remote: true, data: { type: :json }, class: 'js--pub-category-item-rels--form' do
+    = form_tag pub_category_rels_url, remote: true, data: { type: :json }, class: 'js--pub-category-item-rels--form' do
       = hidden_field_tag :pub_type, @pub.class
       = hidden_field_tag :pub_id,   @pub.id
 
@@ -9,6 +9,6 @@ div(ptz--tabs-scope='pub-edit')
 
       = hidden_field_tag :checked
 
-    - selected_pub_categories = @pub.pub_category_item_rels.pluck(:category_id, :category_type)
+    - selected_pub_categories = @pub.pub_category_rels.pluck(:category_id, :category_type)
     ol.the-sortable-tree.the-sortable-tree--list(data={ max_levels: 5 })
-      = sortable_tree @hubs, render_module: PubCategoryItemRelsManagerHelper, selected_pub_categories: selected_pub_categories
+      = sortable_tree @hubs, render_module: PubCategoryRelsManagerHelper, selected_pub_categories: selected_pub_categories

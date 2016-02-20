@@ -9,14 +9,14 @@ class PubsController < ApplicationController
     @hub       = Hub.published.friendly_first(:main)
     @root_hubs = Hub.nested_set.roots.published
 
-    sub_sql = PubCategoryItemRel
+    sub_sql = PubCategoryRel
                 .published
                 .where(category: @hub)
                 .select(%{ DISTINCT ON ("item_id", "item_type") * })
                 .to_sql
 
-    @pub_items = PubCategoryItemRel
-                  .from("(#{ sub_sql }) pub_category_item_rels")
+    @pub_items = PubCategoryRel
+                  .from("(#{ sub_sql }) pub_category_rels")
                   .includes(:item)
                   .max2min([:id])
                   .simple_sort(params)
@@ -26,13 +26,13 @@ class PubsController < ApplicationController
   # Restricted area
 
   def manage
-    sub_sql = PubCategoryItemRel
+    sub_sql = PubCategoryRel
                 .for_manage
                 .select(%{ DISTINCT ON ("item_id", "item_type") * })
                 .to_sql
 
-    @pub_items = PubCategoryItemRel
-                  .from("(#{ sub_sql }) pub_category_item_rels")
+    @pub_items = PubCategoryRel
+                  .from("(#{ sub_sql }) pub_category_rels")
                   .includes(:item)
                   .max2min([:id])
                   .simple_sort(params)

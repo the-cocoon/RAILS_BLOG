@@ -1,7 +1,7 @@
 # This migration comes from rails_blog_engine (originally 1300)
-class RailsBlogCreatePubCategoryItemRels < ActiveRecord::Migration
+class RailsBlogCreatePubCategoryRels < ActiveRecord::Migration
   def change
-    create_table :pub_category_item_rels do |t|
+    create_table :pub_category_rels do |t|
       t.references :category, polymorphic: true
       t.references :item, polymorphic: true
 

@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  include ::PubController
+  include ::RailsBlog::PubController
 
   def show
     super

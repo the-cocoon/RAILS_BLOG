@@ -25,13 +25,23 @@ module RailsBlog
       # Relations
       # Publications categorization
       ########################################
-      has_many :pub_category_item_rels,
+      has_many :pub_category_rels,
         as: :item
 
       has_many :hubs,
-        through: :pub_category_item_rels,
+        through: :pub_category_rels,
         source: :category,
         source_type: :Hub
+
+      has_many :pub_tags,
+        through: :pub_category_rels,
+        source: :category,
+        source_type: :PubTag
+
+      def tags_list
+        pub_tags.map(&:title).join(', ')
+      end
+
       ########################################
 
       before_save :set_published_at

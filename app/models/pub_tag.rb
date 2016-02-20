@@ -1,3 +1,3 @@
-class Hub < ActiveRecord::Base
+class PubTag < ActiveRecord::Base
   include ::RailsBlog::CategoryModel
 end

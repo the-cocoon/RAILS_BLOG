@@ -1,4 +1,4 @@
-class PubCategoryItemRelsController < ApplicationController
+class PubCategoryRelsController < ApplicationController
   include ::TheSortableTreeController::ReversedRebuild
 
   layout 'rails_blog_layout'
@@ -12,24 +12,24 @@ class PubCategoryItemRelsController < ApplicationController
 
   def create
     checked = params[:checked].to_i == 1
-    checked ? create_pub_category_item_rels(params) : destroy_pub_category_item_rels(params)
+    checked ? create_pub_category_rels(params) : destroy_pub_category_rels(params)
   end
 
   # Restricted area
 
   def ordering
-    @category_items = @category.pub_category_item_rels.reversed_nested_set
+    @category_items = @category.pub_category_rels.reversed_nested_set
   end
 
-  def create_pub_category_item_rels params
-    PubCategoryItemRel.create(category: @category, item: @pub)
+  def create_pub_category_rels params
+    PubCategoryRel.create(category: @category, item: @pub)
     @pub.keep_consistency!
-    render template: 'pub_category_item_rels/json/create.success.json.jbuilder'
+    render template: 'pub_category_rels/json/create.success.json.jbuilder'
   end
 
-  def destroy_pub_category_item_rels params
-    PubCategoryItemRel.where(category: @category, item: @pub).delete_all
-    render template: 'pub_category_item_rels/json/destroy.success.json.jbuilder'
+  def destroy_pub_category_rels params
+    PubCategoryRel.where(category: @category, item: @pub).delete_all
+    render template: 'pub_category_rels/json/destroy.success.json.jbuilder'
   end
 
   def set_category

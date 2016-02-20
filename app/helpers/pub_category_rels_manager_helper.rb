@@ -6,7 +6,7 @@
 # Prepare your data on server side for rendering
 # or use h.html_escape(node.content)
 # for escape potentially dangerous content
-module PubCategoryItemRelsManagerHelper
+module PubCategoryRelsManagerHelper
   module Render
     class << self
       attr_accessor :h, :options

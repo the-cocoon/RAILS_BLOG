@@ -11,10 +11,10 @@ module RailsBlog
     def rails_blog_routes
       get "pubs_ordering/:category_type/:category_id",
         action: :ordering,
-        controller: :pub_category_item_rels,
+        controller: :pub_category_rels,
         as: :pubs_ordering
 
-      resources :pub_category_item_rels do
+      resources :pub_category_rels do
         collection do
           post :rebuild
         end

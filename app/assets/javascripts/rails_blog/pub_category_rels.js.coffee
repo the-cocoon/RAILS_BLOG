@@ -1,4 +1,4 @@
-@PubCategoryItemRels = do ->
+@PubCategoryRels = do ->
   init: ->
     @inited ||= do ->
       doc = $ document
