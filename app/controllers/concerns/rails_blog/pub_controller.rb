@@ -5,12 +5,12 @@ module RailsBlog
     included do
       include ::TheSortableTreeController::ReversedRebuild
 
-      layout 'rails_blog_layout'
+      layout ->{ layout_for_action }
 
       before_action :set_klass
-      before_action :set_pub_and_user, only: (
-        %w[ rebuild show print edit slug view_templates update destroy ]
-      )
+      before_action :set_pub_and_user, only: %w[
+        rebuild show print edit slug view_templates update destroy
+      ]
 
       # MAIN IMAGE
       before_action :user_require,   except: %w[ index show ]
@@ -99,6 +99,14 @@ module RailsBlog
     end
 
     private
+
+    def layout_for_action
+      if %w[ index show ].include? action_name
+        'rails_blog_layout'
+      else
+        'rails_blog_backend'
+      end
+    end
 
     def render_custom_view opts = {}
       opts = opts.with_indifferent_access

@@ -40,6 +40,14 @@ module RailsBlog
         end
       end
 
+      resources :pub_tags do
+        collection do
+          get :manage
+          get :tree
+          post :rebuild
+        end
+      end
+
       resources :pubs do
         collection do
           get :manage

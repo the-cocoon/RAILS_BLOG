@@ -2,20 +2,23 @@ module RailsBlog
   module CategoryController
     extend ActiveSupport::Concern
 
-    include ::RailsBlog::PubController
+    # include ::RailsBlog::PubController
     include ::TheSortableTreeController::Rebuild
     include ::TheSortableTreeController::ExpandNode
 
     included do
-      before_action :set_hub_via_pub, only: %w[ ordering ]
-      before_action :set_hub
+      before_action :set_pub_category, only: %w[ show ]
+      before_action :set_editable_pub_category, only: %w[ edit update destroy ]
+
+      # before_action :set_hub_via_pub, only: %w[ ordering ]
+      # before_action :set_hub
     end
 
     def show
-      @hubs = @hub.children.published.nested_set
+      @pub_categories = @pub_category.children.published.nested_set
 
       @pub_items = PubCategoryRel
-                    .where(category: @hub)
+                    .where(category: @pub_category)
                     .includes(:item)
                     .published
                     .reversed_nested_set
@@ -67,32 +70,56 @@ module RailsBlog
       @hubs = current_user.hubs.for_manage.nested_set
     end
 
+    # private
+
+    # def set_hub_via_pub
+    #   set_klass
+    #   set_pub_and_user
+    # end
+
+    # def set_hub
+    #   @hub = @pub
+    # end
+
+    # def hub_params
+    #   # TODO: user_id for create
+    #   # TODO: user_id for update only for moderator|admin
+
+    #   @hub_state = params[:hub].try(:[], :state)
+    #   params.require(:hub).permit(
+    #     :user_id,
+    #     :slug,
+
+    #     :optgroup,
+
+    #     :title,
+    #     :raw_intro,
+    #     :raw_content,
+
+    #     :state
+    #   )
+    # end
+
     private
 
-    def set_hub_via_pub
-      set_klass
-      set_pub_and_user
+    def set_pub_category
+      @pub_category = category_klass.published.friendly_first(params[:id])
+      return page_404 unless @pub_category
     end
 
-    def set_hub
-      @hub = @pub
+    def set_editable_pub_category
+      @pub_category = category_klass.for_manage.friendly_first(params[:id])
+      return page_404 unless @pub_category
     end
 
-    def hub_params
-      # TODO: user_id for create
-      # TODO: user_id for update only for moderator|admin
+    def pub_category_params
+      param_name = category_klass.table_name.singularize
 
-      @hub_state = params[:hub].try(:[], :state)
-      params.require(:hub).permit(
-        :user_id,
-        :slug,
-
-        :optgroup,
-
+      params.require(param_name).permit(
         :title,
+        :url,
         :raw_intro,
         :raw_content,
-
         :state
       )
     end

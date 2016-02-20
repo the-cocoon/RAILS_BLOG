@@ -1,0 +1,5 @@
+- content_for :layout_assets
+  = stylesheet_link_tag    :rails_blog_backend, media: :all, 'data-turbolinks-track' => true
+  = javascript_include_tag :rails_blog_backend, 'data-turbolinks-track' => true
+
+= render template: 'app_view/layouts/app_layout'

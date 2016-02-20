@@ -1,5 +1,5 @@
 class HubsController < ApplicationController
-  layout 'rails_shop_layout'
+  layout 'rails_blog_layout'
 
   def category_klass
     ::Hub
@@ -7,5 +7,5 @@ class HubsController < ApplicationController
 
   before_action :authenticate_user!,  except: %w[ index show ]
 
-  include ::RailsBlog::CategoryCommonController
+  include ::RailsBlog::CategoryController
 end
