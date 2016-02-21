@@ -33,6 +33,7 @@
 
 //= require attached_images/attached_images
 //= require rails_blog/pub_category_rels
+//= require rails_blog/pub_tags_rels
 
 //= require rails_blog/application_initializer
 //= require app_view/initializer

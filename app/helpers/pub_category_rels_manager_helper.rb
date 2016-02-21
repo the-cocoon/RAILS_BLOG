@@ -48,7 +48,7 @@ module PubCategoryRelsManagerHelper
         data    = { 'category-id' => node.id, 'category-type' => node.class.to_s }
 
         "<div class='mr15'>
-          #{ h.check_box_tag category_id, 1, checked, { autocomplete: :off, data: data, class: 'js--pub-category-item-rels--checkbox' } }
+          #{ h.check_box_tag category_id, 1, checked, { autocomplete: :off, data: data, class: 'js--pub-category-rels--checkbox' } }
           #{ h.label_tag category_id, '', for: category_id }
         </div>"
       end

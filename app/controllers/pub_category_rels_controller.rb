@@ -24,12 +24,22 @@ class PubCategoryRelsController < ApplicationController
   def create_pub_category_rels params
     PubCategoryRel.create(category: @category, item: @pub)
     @pub.keep_consistency!
-    render template: 'pub_category_rels/json/create.success.json.jbuilder'
+
+    respond_to do |format|
+      format.json { render template: "pub_category_rels/json/#{ render_type }create.success.json.jbuilder" }
+    end
   end
 
   def destroy_pub_category_rels params
     PubCategoryRel.where(category: @category, item: @pub).delete_all
-    render template: 'pub_category_rels/json/destroy.success.json.jbuilder'
+
+    respond_to do |format|
+      format.json { render template: "pub_category_rels/json/#{ render_type }destroy.success.json.jbuilder" }
+    end
+  end
+
+  def render_type
+    "#{ params[:render_type] }_" if params[:render_type]
   end
 
   def set_category
