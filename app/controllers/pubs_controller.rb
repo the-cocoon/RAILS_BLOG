@@ -1,9 +1,7 @@
-class PubsController < ApplicationController
+class PubsController < RailsBlogController
   before_action :user_require,   except: %w[ index ]
   before_action :owner_required, except: %w[ index ]
   before_action :admin_require,  except: %w[ index ]
-
-  layout 'rails_blog_layout'
 
   def index
     @hub       = Hub.published.friendly_first(:main)

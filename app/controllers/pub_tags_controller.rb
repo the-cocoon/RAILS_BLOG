@@ -1,6 +1,4 @@
-class PubTagsController < RailsShopController
-  layout 'rails_blog_layout'
-
+class PubTagsController < RailsBlogController
   def category_klass
     ::PubTag
   end

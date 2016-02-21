@@ -7,6 +7,8 @@ module RailsBlog
     include ::TheSortableTreeController::ExpandNode
 
     included do
+      layout ->{ layout_for_action }
+
       before_action :set_pub_category, only: %w[ show ]
       before_action :set_editable_pub_category, only: %w[ edit update destroy ]
 

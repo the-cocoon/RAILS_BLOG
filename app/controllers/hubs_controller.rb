@@ -1,6 +1,4 @@
-class HubsController < ApplicationController
-  layout 'rails_blog_layout'
-
+class HubsController < RailsBlogController
   def category_klass
     ::Hub
   end

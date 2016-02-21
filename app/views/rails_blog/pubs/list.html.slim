@@ -13,7 +13,8 @@
 
       tbody
         - pubs.each do |pub_item|
-          - pub = pub_item.item
+          - pub = pub_item.try(:item) || pub_item
+
           tr
             td.p20
               = link_to pub do

@@ -1,7 +1,5 @@
-class PubCategoryRelsController < ApplicationController
+class PubCategoryRelsController < RailsBlogController
   include ::TheSortableTreeController::ReversedRebuild
-
-  layout 'rails_blog_layout'
 
   before_action :user_require,   except: %w[ ]
   before_action :owner_required, except: %w[ ]
@@ -18,7 +16,12 @@ class PubCategoryRelsController < ApplicationController
   # Restricted area
 
   def ordering
-    @category_items = @category.pub_category_rels.reversed_nested_set
+    @category_items =
+      @category
+        .pub_category_rels
+        .for_manage
+        .reversed_nested_set
+        .pagination(params)
   end
 
   def create_pub_category_rels params

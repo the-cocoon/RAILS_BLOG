@@ -29,19 +29,19 @@ module RailsBlog
     end
 
     def print
-      render layout: false, template: 'pubs/print'
+      render layout: false, template: 'rails_blog/pubs/print'
     end
 
     # Restricted actions
 
     def my
-      @pubs = @user.send(controller_name).max2min(:id).simple_sort(params).pagination(params)
-      render 'pubs/manage'
+      @pub_items = @user.send(controller_name).max2min(:id).simple_sort(params).pagination(params)
+      render 'rails_blog/pubs/manage'
     end
 
     def new
       @pub = @klass.new
-      render 'pubs/new'
+      render 'rails_blog/pubs/new'
     end
 
     def create
@@ -52,13 +52,13 @@ module RailsBlog
         @pub.keep_consistency_after_create!
         redirect_to url_for([:edit, @pub]), notice: "Публикация создана"
       else
-        render 'pubs/new'
+        render 'rails_blog/pubs/new'
       end
     end
 
     def edit
       @hubs  = current_user.hubs.nested_set.for_manage
-      render 'pubs/edit'
+      render 'rails_blog/pubs/edit'
     end
 
     def update
@@ -70,7 +70,7 @@ module RailsBlog
         redirect_to url_for([:edit, @pub]), notice: "Публикация обновлена"
       else
         @pub.update_attachment_fields(:main_image)
-        render 'pubs/edit'
+        render 'rails_blog/pubs/edit'
       end
     end
 
@@ -81,32 +81,24 @@ module RailsBlog
     end
 
     def manage
-      @pubs = if current_user.admin?
+      @pub_items = if current_user.admin?
         @klass.max2min(:id).simple_sort(params).pagination(params)
       else
         @user.send(controller_name).max2min(:id).simple_sort(params).pagination(params)
       end
 
-      render 'pubs/manage'
+      render 'rails_blog/pubs/manage'
     end
 
     def slug
-      render 'pubs/slug'
+      render 'rails_blog/pubs/slug'
     end
 
     def view_templates
-      render 'pubs/view_templates'
+      render 'rails_blog/pubs/view_templates'
     end
 
     private
-
-    def layout_for_action
-      if %w[ index show ].include? action_name
-        'rails_blog_layout'
-      else
-        'rails_blog_backend'
-      end
-    end
 
     def render_custom_view opts = {}
       opts = opts.with_indifferent_access

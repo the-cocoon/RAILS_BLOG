@@ -1,3 +1,5 @@
+- @hub = @pub_category
+
 - content_for :title do
   = @hub.title
 
@@ -24,7 +26,6 @@
       .ptz--tabs--item.ptz--tabs--active(ptz--tab-id='form') Основные данные
       .ptz--tabs--item(ptz--tab-id='images') Картинка
       .ptz--tabs--item(ptz--tab-id='seo') SEO
-      .ptz--tabs--item(ptz--tab-id='slug') ЧПУ
     .mt20.mb20
       .ptz--tabs--content-item.ptz--tabs--active(ptz--tab-content='form')
         .ptz--theme-0= render template: 'hubs/edit/form'
@@ -33,7 +34,6 @@
         .ptz--theme-0.w800= render template: 'attached_images/edit/attached_images', locals: { item: @hub }
 
       .ptz--tabs--content-item(ptz--tab-content='seo')
-        .ptz--theme-0= render template: 'meta_data/edit/meta_data', locals: { item: @hub }
-
-      .ptz--tabs--content-item(ptz--tab-content='slug')
-        .ptz--theme-0= render template: 'hubs/edit/slug'
+        .ptz--theme-0
+          .mb20= render template: 'hubs/edit/slug'
+          .mb20= render template: 'meta_data/edit/meta_data', locals: { item: @hub }

@@ -1,4 +1,4 @@
-class PostsController < ApplicationController
+class PostsController < RailsBlogController
   include ::RailsBlog::PubController
 
   def show
