@@ -1,12 +1,11 @@
 - content_for :title do
-  = @hub.title
+  = @pub_category.title
 
 = render template: 'app_view/layouts/items/header_footer'
 
-.m20
-  - if current_user && current_user.admin?
-    .mt20.mb20
-      = link_to 'Редактировать', [:edit, @hub], class: 'ptz--btn mr20'
-      = link_to 'Порядок публикаций', pubs_ordering_path(@hub.class, @hub.to_param), class: 'ptz--btn'
+- if current_user && current_user.admin?
+  .mt20.mb20
+    = link_to 'Редактировать', [:edit, @pub_category], class: 'ptz--btn mr20'
+    = link_to 'Порядок публикаций', pubs_ordering_path(@pub_category.class, @pub_category.to_param), class: 'ptz--btn'
 
-  = render template: 'pubs/list', locals: { pubs: @hub_items }
+= render template: 'pubs/list', locals: { pubs: @pub_items }
