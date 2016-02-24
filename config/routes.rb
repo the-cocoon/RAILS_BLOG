@@ -9,6 +9,8 @@ module RailsBlog
 
   module DefaultRoutes
     def rails_blog_routes
+      get 'pubs_search' => "pubs_search#pubs_search"
+
       get "pubs_ordering/:category_type/:category_id",
         action: :ordering,
         controller: :pub_category_rels,

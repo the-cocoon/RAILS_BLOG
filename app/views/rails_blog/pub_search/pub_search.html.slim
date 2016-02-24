@@ -1,0 +1,11 @@
+- content_for :title do
+  | Rails Blog
+
+= render template: 'app_view/layouts/items/header_footer'
+
+.m20
+  .tar.fs15.mb20
+    = render template: 'common/pages_and_reset'
+
+  = render template: 'pubs/list', locals: { pubs: @pub_items }
+  = render template: 'common/paginator', locals: { items: @pub_items }
