@@ -1,9 +1,10 @@
 //= require jquery2
+
 //= require jquery-ui
-//= require jquery_ujs
 //= require jquery-ui/core
 //= require jquery-ui/autocomplete
 
+//= require jquery_ujs
 //= require turbolinks
 
 //= require log_js
