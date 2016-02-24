@@ -15,3 +15,4 @@ $(document).on "ready page:load", ->
   TheStoragesFileUploader.init()
 
   TheSortableTree.SortableUI.init()
+  TheCommentsManager.init()
