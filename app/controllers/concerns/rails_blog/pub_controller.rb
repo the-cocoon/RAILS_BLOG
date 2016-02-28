@@ -134,6 +134,19 @@ module RailsBlog
               .available_pub_for(current_user)
               .friendly_first(pub_id)
 
+      if @pub
+        @prev_pub = @klass
+                      .where("#{ @klass.table_name }.id < ?", @pub.id)
+                      .with_users
+                      .available_pub_for(current_user)
+                      .last
+
+        @next_pub = @klass
+                      .where("#{ @klass.table_name }.id > ?", @pub.id)
+                      .available_pub_for(current_user)
+                      .first
+      end
+
       return page_404 unless @pub
 
       @user = @pub.user
