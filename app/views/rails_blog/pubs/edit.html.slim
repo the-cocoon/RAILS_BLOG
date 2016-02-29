@@ -9,14 +9,10 @@
 - if @pub.editor_type == 'ptz_editor'
   = render template: 'common/editor/ptz_editor'
 
-- content_for :left_sidebar do
-
-  .ptz--theme-0.m20
-    div= link_to 'Кабинет',  cabinet_path, class: 'ptz--btn ptz--size-16 w100p'
-    hr.ptz--hr-0.mt20.mb20
-    div= link_to 'Просмотр', @pub, class: 'ptz--btn ptz--size-16 w100p'
-    hr.ptz--hr-0.mt20.mb20
-    div= link_to 'Публикации', manage_pubs_path, class: 'ptz--btn ptz--size-16 w100p'
+.ptz--theme-0.m20
+  span.mr20= link_to 'Кабинет',  cabinet_path, class: 'ptz--btn ptz--size-16'
+  span.mr20= link_to 'Просмотр', @pub, class: 'ptz--btn ptz--size-16'
+  span.mr20= link_to 'Публикации', manage_pubs_path, class: 'ptz--btn ptz--size-16'
 
 .m20
   .mb30.fs22 Редактировать Публикацию

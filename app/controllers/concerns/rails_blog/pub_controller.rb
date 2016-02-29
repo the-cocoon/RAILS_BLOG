@@ -144,8 +144,8 @@ module RailsBlog
     def set_prev_next_pubs
       return unless @pub
       base_rel = @klass.available_pub_for(current_user)
-      @prev_pub = base_rel.where("#{ @klass.table_name }.id < ?", @pub.id).last
-      @next_pub = base_rel.where("#{ @klass.table_name }.id > ?", @pub.id).first
+      @next_pub = base_rel.where("#{ @klass.table_name }.created_at < ?", @pub.created_at).last
+      @prev_pub = base_rel.where("#{ @klass.table_name }.created_at > ?", @pub.created_at).first
     end
 
     # MAIN IMAGE
