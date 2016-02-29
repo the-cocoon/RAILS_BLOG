@@ -11,6 +11,7 @@ module RailsBlog
       before_action :set_pub_and_user, only: %w[
         rebuild show print edit slug view_templates update destroy
       ]
+      before_action :set_prev_next_pubs, only: %w[ show ]
 
       # MAIN IMAGE
       before_action :user_require,   except: %w[ index show ]
@@ -134,23 +135,17 @@ module RailsBlog
               .available_pub_for(current_user)
               .friendly_first(pub_id)
 
-      if @pub
-        @prev_pub = @klass
-                      .where("#{ @klass.table_name }.id < ?", @pub.id)
-                      .with_users
-                      .available_pub_for(current_user)
-                      .last
-
-        @next_pub = @klass
-                      .where("#{ @klass.table_name }.id > ?", @pub.id)
-                      .available_pub_for(current_user)
-                      .first
-      end
-
       return page_404 unless @pub
 
       @user = @pub.user
       @owner_check_object = @pub
+    end
+
+    def set_prev_next_pubs
+      return unless @pub
+      base_rel = @klass.available_pub_for(current_user)
+      @prev_pub = base_rel.where("#{ @klass.table_name }.id < ?", @pub.id).last
+      @next_pub = base_rel.where("#{ @klass.table_name }.id > ?", @pub.id).first
     end
 
     # MAIN IMAGE
