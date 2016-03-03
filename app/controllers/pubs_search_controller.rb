@@ -4,8 +4,8 @@
 # ::ThinkingSphinx.search("canon", star: true, classes: [ Product ], indices: %w[ product_core ]).count
 # ::ThinkingSphinx.search("canon", star: true, classes: [ Product ], indices: %w[ admin_product_core ]).count
 
-class BlogSearchController < RailsBlogController
-  def blog_search
+class PubsSearchController < RailsBlogController
+  def pubs_search
     @bq = params[:bq].to_s.strip
     to_search = ::Riddle::Query.escape @bq
 
@@ -38,7 +38,7 @@ class BlogSearchController < RailsBlogController
 
     respond_to do |format|
       format.html
-      format.json { render template: 'rails_blog/blog_search/json/pubs_search.json.jbuilder' }
+      format.json { render template: 'rails_blog/pubs_search/json/pubs_search.json.jbuilder' }
     end
   end
 end
