@@ -9,8 +9,6 @@ module PubTagsCloudHelper
     rels.in_groups_of(group_count, false).each_with_index do |group, index|
       res_items << group.map do |rel_item|
         klass = klasses[index]
-        puts index
-        puts klass
         block.call(rel_item, klass)
       end
     end

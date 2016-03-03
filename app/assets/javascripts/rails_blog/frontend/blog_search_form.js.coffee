@@ -33,9 +33,10 @@
         my: "right top"
         at: "right bottom"
       focus: (e, ui) ->
-        log 'focus'
+        # log 'focus'
       select: (e, ui) ->
-        log 'select'
+        location.href = ui.item.url_for
+        false
       open: (e, ui) ->
         bq_input = $ e.target
         ac       = bq_input.data('ui-autocomplete')
