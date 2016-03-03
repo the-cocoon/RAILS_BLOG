@@ -15,6 +15,9 @@
 # belongs_to :item,     polymorphic: true
 
 class PubCategoryRel < ActiveRecord::Base
+  # Fix for Select with `AS custom_name`
+  column_names << "category_count"
+
   include ::SimpleSort::Base
   include ::Pagination::Base
   include ::TheSortableTree::Scopes
@@ -35,4 +38,19 @@ class PubCategoryRel < ActiveRecord::Base
   def define_item_state
     self.item_state = item.state
   end
+
+  scope :pub_tag_rels, ->{ where category_type: :PubTag }
+
+  scope :tags_top, ->(limit = 10){
+    pub_tag_rels.published
+    .select('
+      COUNT(category_id) AS "category_count",
+      MAX(category_id)   AS "category_id",
+      \'PubTag\'         AS "category_type"
+    ')
+    .includes(:category)
+    .group('category_id')
+    .order('category_count DESC')
+    .limit(limit)
+  }
 end

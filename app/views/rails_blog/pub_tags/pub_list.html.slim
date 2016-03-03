@@ -1,12 +1,12 @@
 - tags     = pub.pub_tags
 - pub_tags = PubTag.published
 
-.ml20.mr20.mb40(class='js--pub-tags--selected')
+.ma.w1000.mb40(class='js--pub-tags--selected')
   - tags.each do |tag|
     = link_to jsvoid, remote: true, data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }, class: "js--pub-tags--selected--#{ tag.slug } js--pub-tags-rels--delete ptz--btn ptz--size-13 mr5 mb5 b"
       = tag.title
 
-.m20
+.ma.w1000
   - pub_tags = pub_tags.min2max(:title).group_by{|u| u.title.first.mb_chars.upcase.ord }
   - pub_tags.sort.each do |alpha, glossary_array|
     .fs18.mb15= alpha.chr

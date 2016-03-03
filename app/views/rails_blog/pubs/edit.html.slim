@@ -23,6 +23,7 @@
   .ptz--tabs(ptz--tabs-scope='pub-edit')
     .ptz--tabs--holder
       .ptz--tabs--item.ptz--tabs--active(ptz--tab-id='form') Основные данные
+      .ptz--tabs--item(ptz--tab-id='storage') Файлы
       .ptz--tabs--item(ptz--tab-id='main_image')
         | Картинки
         '
@@ -43,18 +44,28 @@
 
       .ptz--tabs--item(ptz--tab-id='seo') SEO
       .ptz--tabs--item(ptz--tab-id='rel-pubs') Публикации +
+
     .mt20.mb20
+
       .ptz--tabs--content-item.ptz--tabs--active(ptz--tab-content='form')
         .ptz--theme-0= render template: 'pubs/edit/form'
+
       .ptz--tabs--content-item(ptz--tab-content='main_image')
         .ptz--theme-0= render template: 'attached_images/edit/attached_images', locals: { item: @pub }
+
+      .ptz--tabs--content-item(ptz--tab-content='storage')
+        .ptz--theme-0= render template: 'pubs/edit/storage', locals: { item: @pub }
+
       .ptz--tabs--content-item(ptz--tab-content='seo')
         .ptz--theme-0
           .mb30= render template: 'pubs/edit/slug'
           .mb30= render template: 'meta_data/edit/meta_data', locals: { item: @pub }
+
       .ptz--tabs--content-item(ptz--tab-content='hubs')
         .ptz--theme-0= render template: 'pubs/edit/hub_items_rels'
+
       .ptz--tabs--content-item(ptz--tab-content='pub_tags')
         .ptz--theme-0= render template: 'rails_blog/pub_tags/pub_list', locals: { pub: @pub }
+
       .ptz--tabs--content-item(ptz--tab-content='rel-pubs')
-        .fs15 Здесь можно указать связанные посты
+        .fs15 Здесь будет можно указать связанные посты

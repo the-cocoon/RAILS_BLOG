@@ -8,5 +8,8 @@
 
   #= require the_comments/base
 
+  #= require notifications/vendors/toastr
+  #= require components/toastr/style
+
   #= require app_view/layout/common_styles
 */

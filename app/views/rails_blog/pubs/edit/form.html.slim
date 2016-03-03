@@ -4,7 +4,7 @@
 - if @pub.editor_type == 'ptz_editor'
   = render template: 'common/editor/ptz_editor'
 
-.w1000
+.ma.w1000
   .ptz--div-0.mb20
     = form_for @pub do |f|
       .m20
@@ -28,8 +28,3 @@
 
         .tar
           = f.submit 'Обновить', class: 'ptz--btn ptz--size-20'
-
-  .mt30.mb30.fs18 Прикрепленные файлы
-
-  .mb20= render partial: 'the_storages/form', locals: { storage: @pub }
-  .mb20= render partial: 'the_storages/list', locals: { storage: @pub }

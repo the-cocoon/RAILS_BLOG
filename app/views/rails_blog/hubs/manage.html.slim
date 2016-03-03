@@ -3,20 +3,15 @@
 
 = render template: 'layouts/items/header_footer'
 
-- content_for :left_sidebar do
-
-  .ptz--theme-0.m20
-    div= link_to 'В кабинет', cabinet_path, class: 'ptz--btn ptz--size-16 w100p'
-    hr.ptz--hr-0.mt20.mb20
-    div= link_to 'Новый раздел', new_hub_path, class: 'ptz--btn ptz--size-16 w100p'
-
 .ptz--theme-0.m20.mt25
   .fs20.mb50 Разделы
 
-  .clearfix.mb25.fs15
-    .pull-left
-      = link_to 'Структура', tree_hubs_path
-    .pull-right
+  .ptz--table.w100p.mb20.fs15
+    .ptz--td.vam.w40p.tal
+      span.mr20= link_to 'Новый раздел', new_hub_path, class: 'ptz--btn ptz--size-14'
+      span.mr20= link_to 'Структура разделов', tree_hubs_path, class: 'ptz--btn ptz--size-14'
+
+    .ptz--td.vam.tar
       = render template: 'common/pages_and_reset'
 
   table.ptz--table-0.fs16

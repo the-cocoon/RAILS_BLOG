@@ -3,14 +3,18 @@
 
 = render template: 'layouts/items/header_footer'
 
-- content_for :left_sidebar do
-  .m20
-    = link_to 'Главная', root_path, class: 'ptz--btn ptz--size-16 w100p mb20'
-    = link_to 'Новый раздел', new_hub_path, class: 'ptz--btn ptz--size-16 w100p mb20'
+/ - content_for :left_sidebar do
+/   .m20
 
-.m20.mt25.w800
-  .fs20.mb30 Разделы
 
-  .ptz--theme-0
-    ol.the-sortable-tree.the-sortable-tree--list(data={ max_levels: 5, rebuild_url: rebuild_hubs_url })
-      = sortable_tree @hubs
+.w100p
+  .ma.mt25.w800
+    .mb20
+      span.mr20= link_to 'Новый раздел', new_hub_path, class: 'ptz--btn ptz--size-14'
+      span.mr20= link_to 'Управление разделами', manage_hubs_path, class: 'ptz--btn ptz--size-14'
+
+    .fs20.mb30 Разделы
+
+    .ptz--theme-0
+      ol.the-sortable-tree.the-sortable-tree--list(data={ max_levels: 5, rebuild_url: rebuild_hubs_url })
+        = sortable_tree @hubs
