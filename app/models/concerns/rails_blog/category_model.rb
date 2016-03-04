@@ -32,6 +32,12 @@ module RailsBlog
         through: :pub_category_rels,
         source: :item,
         source_type: :Page
+
+      def owner?(check_user = nil)
+        return false unless check_user.is_a?(::User)
+        user == check_user
+      end
+
     end
   end
 end

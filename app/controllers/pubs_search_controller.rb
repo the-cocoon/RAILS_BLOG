@@ -37,7 +37,7 @@ class PubsSearchController < RailsBlogController
                    @blog_items_1
 
     respond_to do |format|
-      format.html
+      format.html { render layout: 'rails_blog_frontend' }
       format.json { render template: 'rails_blog/pubs_search/json/pubs_search.json.jbuilder' }
     end
   end

@@ -19,6 +19,10 @@ module RailsBlog
     def show
       @pub_categories = @pub_category.children.published.nested_set
 
+      if @pub_category.published? && !@pub_category.owner?(current_user)
+        category_klass.increment_counter(:view_counter, @pub_category.id)
+      end
+
       @pub_items = PubCategoryRel
                     .where(category: @pub_category)
                     .includes(:item)
@@ -27,7 +31,7 @@ module RailsBlog
                     .simple_sort(params)
                     .pagination(params)
 
-      render template: 'hubs/show'
+      # render template: 'hubs/show'
     end
 
     # Restricted area
@@ -103,6 +107,23 @@ module RailsBlog
     # end
 
     private
+
+    def render_custom_view opts = {}
+      opts = opts.with_indifferent_access
+
+      layout   = opts[:default_layout]
+      template = opts[:default_template]
+      pub      = opts[:publication]
+
+      if pub
+        layout   = pub.view_layout   if pub.view_layout.present?
+        template = pub.view_template if pub.view_template.present?
+      end
+
+      if layout.present? || template.present?
+        render({ layout: layout, template: template }.compact)
+      end
+    end
 
     def set_pub_category
       @pub_category = category_klass.published.friendly_first(params[:id])
