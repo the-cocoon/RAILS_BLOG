@@ -7,6 +7,10 @@ class PubTagsController < RailsBlogController
 
   include ::RailsBlog::CategoryController
 
+  def index
+    @pub_tags = PubTag.published.min2max(:title)
+  end
+
   def show
     super
 
