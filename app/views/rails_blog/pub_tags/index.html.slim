@@ -1,0 +1,29 @@
+- content_for :title do
+  Теги
+
+= render template: 'app_view/layouts/items/header_footer'
+
+.m20
+  .tac.fs20.fw300 Теги
+
+  .ma.w1000
+    - @pub_tags = @pub_tags.group_by{|u| u.title.first.mb_chars.upcase.ord }
+    - @pub_tags = @pub_tags.to_a.sort
+    - rus, eng  = @pub_tags .partition{|item| item.first > 1000 }
+
+    .mt40.mb40.fs26 Русский алфавит
+
+    - rus.each do |alpha, glossary_array|
+      .fs18.mb15= alpha.chr
+      .mb20
+        - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
+          = link_to tag.title, tag, class: "ptz--btn ptz--size-13 mr5 mb5"
+
+    .mt40.mb40.fs26 Английский алфавит
+
+    - eng.each do |alpha, glossary_array|
+      .fs18.mb15= alpha.chr
+      .mb20
+        - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
+          = link_to tag.title, tag, class: "ptz--btn ptz--size-13 mr5 mb5"
+

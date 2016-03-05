@@ -11,7 +11,7 @@
   #= require notifications/vendors/toastr
   #= require components/toastr/style
 
-  #= require rails_blog/frontend/jq--autocomplete.css.sass
+  #= require rails_blog/frontend/jq--autocomplete
 
   #= require app_view/layout/common_styles
 */

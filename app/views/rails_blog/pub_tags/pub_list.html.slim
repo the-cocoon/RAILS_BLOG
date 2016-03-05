@@ -1,5 +1,5 @@
 - tags     = pub.pub_tags
-- pub_tags = PubTag.published
+- pub_tags = PubTag.published.min2max(:title)
 
 .ma.w1000.mb40(class='js--pub-tags--selected')
   - tags.each do |tag|
@@ -7,8 +7,23 @@
       = tag.title
 
 .ma.w1000
-  - pub_tags = pub_tags.min2max(:title).group_by{|u| u.title.first.mb_chars.upcase.ord }
-  - pub_tags.sort.each do |alpha, glossary_array|
+  - pub_tags = pub_tags.group_by{|u| u.title.first.mb_chars.upcase.ord }
+  - rus, eng = pub_tags.partition{|item| item.first > 1000 }
+
+  .mt40.mb40.fs26 Русский алфавит
+
+  - rus.sort.each do |alpha, glossary_array|
+    .fs18.mb15= alpha.chr
+    .mb20
+      - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
+        - if tags.include?(tag)
+          = link_to tag.title, jsvoid, class: "js--pub-tags--current--#{ tag.slug } js--pub-tags-rels--delete ptz--btn ptz--size-13 mr5 mb5 b", data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
+        - else
+          = link_to tag.title, jsvoid, class: "js--pub-tags--regular--#{ tag.slug } js--pub-tags-rels--create ptz--btn ptz--size-13 mr5 mb5", remote: true, data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
+
+  .mt40.mb40.fs26 Английский алфавит
+
+  - eng.sort.each do |alpha, glossary_array|
     .fs18.mb15= alpha.chr
     .mb20
       - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
