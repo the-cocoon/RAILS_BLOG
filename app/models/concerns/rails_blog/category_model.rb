@@ -15,6 +15,7 @@ module RailsBlog
       include ::FriendlyIdPack::Base
       include ::TheSortableTree::Scopes
       include ::AttachedImages::ItemModel
+      include ::Notifications::LocalizedErrors
 
       acts_as_nested_set scope: :user
 

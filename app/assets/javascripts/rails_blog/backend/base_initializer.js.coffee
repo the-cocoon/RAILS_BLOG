@@ -1,4 +1,14 @@
-$(document).on "ready page:load", ->
+doc = $ document
+
+doc.ajaxError (xhr, response, params) ->
+  status = response.status
+  if status isnt 422 && status isnt 200
+    Notifications.show_error("""
+      Техническая ошибка сервера.<br>
+      Код ошибки: `#{ response.status }`
+    """)
+
+doc.on "ready page:load", ->
   Notifications.init()
   Notifications.show_notifications()
 
@@ -12,6 +22,7 @@ $(document).on "ready page:load", ->
 
   TheCommentsManager.init()
 
+  PubTags.init()
   PubTagsRels.init()
   PubCategoryRels.init()
   RemotePubCategoryRels.init()

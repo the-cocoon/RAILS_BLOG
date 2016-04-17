@@ -1,11 +1,11 @@
 class PubTagsController < RailsBlogController
-  def category_klass
+  def pub_category_klass
     ::PubTag
   end
 
   before_action :authenticate_user!,  except: %w[ index show ]
 
-  include ::RailsBlog::CategoryController
+  include ::RailsBlog::PubCategoryController
 
   def index
     @pub_tags = PubTag.published.min2max(:title)
@@ -19,5 +19,9 @@ class PubTagsController < RailsBlogController
       default_template: 'pub_tags/show',
       publication: @pub_category
     )
+  end
+
+  def manage
+    @pub_tags = PubTag.for_manage.min2max(:title)
   end
 end

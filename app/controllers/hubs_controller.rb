@@ -1,9 +1,9 @@
 class HubsController < RailsBlogController
-  def category_klass
+  def pub_category_klass
     ::Hub
   end
 
   before_action :authenticate_user!,  except: %w[ index show ]
 
-  include ::RailsBlog::CategoryController
+  include ::RailsBlog::PubCategoryController
 end

@@ -18,6 +18,7 @@ module RailsBlog
       include ::FriendlyIdPack::Base
       include ::AttachedImages::ItemModel
       include ::TheCommentsBase::Commentable
+      include ::Notifications::LocalizedErrors
 
       belongs_to :user
 

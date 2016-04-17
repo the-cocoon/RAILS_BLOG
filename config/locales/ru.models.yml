@@ -1,0 +1,7 @@
+ru:
+  activerecord:
+    models:
+      pub_tag: Тег
+    attributes:
+      pub_tag:
+        title: Название

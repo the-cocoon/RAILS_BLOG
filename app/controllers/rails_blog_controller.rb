@@ -4,10 +4,10 @@ class RailsBlogController < ApplicationController
   private
 
   def layout_for_action
-    if %w[ index show ].include? action_name
-      'rails_blog_frontend'
-    else
-      'rails_blog_backend'
+    if %w[ index show ].include?(action_name)
+      return 'rails_blog_frontend'
     end
+
+    'rails_blog_backend'
   end
 end
