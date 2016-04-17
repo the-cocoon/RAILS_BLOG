@@ -33,8 +33,6 @@ module RailsBlog
                     .reversed_nested_set
                     .simple_sort(params)
                     .pagination(params)
-
-      # render template: 'hubs/show'
     end
 
     # =======================================
@@ -71,16 +69,22 @@ module RailsBlog
       end
     end
 
+    def destroy
+      @pub_category.destroy
+      @pub_category.try(:keep_consistency_after_destroy!)
+      redirect_to [:manage, pub_category_name]
+    end
+
     # =======================================
     # Restricted Area | Admin
     # =======================================
 
     def manage
-      @pub_categorys = current_user.send(pub_category_name).for_manage.nested_set.simple_sort(params).pagination(params)
+      @pub_categories = current_user.send(pub_category_name).for_manage.nested_set.simple_sort(params).pagination(params)
     end
 
     def tree
-      @pub_categorys = current_user.send(pub_category_name).for_manage.nested_set
+      @pub_categories = current_user.send(pub_category_name).for_manage.nested_set
     end
 
     private
@@ -108,7 +112,7 @@ module RailsBlog
 
       params.require(param_name).permit(
         :title,
-        :url,
+        :slug,
         :raw_intro,
         :raw_content,
         :state

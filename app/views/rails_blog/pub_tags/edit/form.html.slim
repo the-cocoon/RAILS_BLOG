@@ -1,0 +1,15 @@
+.app--div-1
+  = form_for @pub_tag do |f|
+    .m20
+      .mb15
+        = f.label :title, 'Заголовок', class: 'block fs13 mb5'
+        = f.text_field :title, class: 'ptz--input ptz--size-15 w500'
+
+      .mb50
+        = f.label :state, 'Видимость', class: 'block fs13 mb5'
+
+        - options = options_for_select({ 'Черновик' => :draft, 'Опубликовано' => :published }, @pub_tag.state)
+        = f.select :state, options, {}, autocomplete: :off, class: 'ptz--input ptz--select ptz--size-15 w200'
+
+      .tar
+        = f.submit 'Обновить', class: 'ptz--btn ptz--size-20'

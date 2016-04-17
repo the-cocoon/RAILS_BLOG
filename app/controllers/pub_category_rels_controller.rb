@@ -1,10 +1,6 @@
 class PubCategoryRelsController < RailsBlogController
   include ::TheSortableTreeController::ReversedRebuild
 
-  before_action :user_require,   except: %w[ ]
-  before_action :owner_required, except: %w[ ]
-  before_action :admin_require,  except: %w[ ]
-
   before_action :set_category, except: %w[ rebuild ]
   before_action :set_pub,      except: %w[ rebuild ordering ]
 
@@ -13,7 +9,9 @@ class PubCategoryRelsController < RailsBlogController
     checked ? create_pub_category_rels(params) : destroy_pub_category_rels(params)
   end
 
-  # Restricted area
+  # =======================================
+  # Restricted Area | Admin
+  # =======================================
 
   def ordering
     @category_items =

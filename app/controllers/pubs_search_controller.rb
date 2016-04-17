@@ -5,6 +5,10 @@
 # ::ThinkingSphinx.search("canon", star: true, classes: [ Product ], indices: %w[ admin_product_core ]).count
 
 class PubsSearchController < RailsBlogController
+  skip_before_filter :authenticate_user!,   only: %w[ pubs_search ]
+  skip_before_filter :blog_admin_required!, only: %w[ pubs_search ]
+  skip_before_filter :owner_required,       only: %w[ pubs_search ]
+
   def pubs_search
     @bq = params[:bq].to_s.strip
     to_search = ::Riddle::Query.escape @bq

@@ -2,7 +2,11 @@ doc = $ document
 
 doc.ajaxError (xhr, response, params) ->
   status = response.status
-  if status isnt 422 && status isnt 200
+
+  if status is 0
+    Notifications.show_error("Сервер не отвечает")
+
+  if status isnt 422 && status isnt 200 && status isnt 0
     Notifications.show_error("""
       Техническая ошибка сервера.<br>
       Код ошибки: `#{ response.status }`

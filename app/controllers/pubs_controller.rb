@@ -1,8 +1,4 @@
 class PubsController < RailsBlogController
-  before_action :user_require,   except: %w[ index ]
-  before_action :owner_required, except: %w[ index ]
-  before_action :admin_require,  except: %w[ index ]
-
   def index
     @hub       = Hub.published.friendly_first(:main)
     @root_hubs = Hub.nested_set.roots.published
@@ -21,7 +17,9 @@ class PubsController < RailsBlogController
                   .pagination(params)
   end
 
-  # Restricted area
+  # =======================================
+  # Restricted Area | Admin
+  # =======================================
 
   def manage
     sub_sql = PubCategoryRel

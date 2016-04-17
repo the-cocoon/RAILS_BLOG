@@ -8,6 +8,7 @@
 
   #= require notifications/vendors/toastr
   #= require components/toastr/style
+  #= require notifications
 
   #= require protozaur_theme/theme-0/divs
   #= require protozaur_theme/theme-0/tables
@@ -25,4 +26,5 @@
   #= require the_sortable_tree/sortable_ui/base
   #= require attached_images/attached_images
   #= require the_comments/manage
+  #= require rails_blog/backend/pub_tags
 */

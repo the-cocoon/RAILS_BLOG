@@ -1,5 +1,5 @@
 tag  = @pub_category
-link = link_to tag.title, [:edit, tag], class: "ptz--btn ptz--size-13 mr5 mb5"
+link = link_to tag.title, [:edit, tag], class: "pub-tags--state-#{ tag.state } ptz--btn ptz--size-13 mr5 mb5"
 
 json.set! :keep_alerts, true
 

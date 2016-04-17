@@ -3,8 +3,6 @@ class PubTagsController < RailsBlogController
     ::PubTag
   end
 
-  before_action :authenticate_user!,  except: %w[ index show ]
-
   include ::RailsBlog::PubCategoryController
 
   def index
@@ -20,6 +18,10 @@ class PubTagsController < RailsBlogController
       publication: @pub_category
     )
   end
+
+  # =======================================
+  # Restricted Area | Admin
+  # =======================================
 
   def manage
     @pub_tags = PubTag.for_manage.min2max(:title)
