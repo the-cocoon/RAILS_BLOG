@@ -1,0 +1,86 @@
+ruby:
+  meta = post.meta_data
+
+  # TITLE
+  title = meta.title.to_s.squish.strip
+
+  if title.blank?
+    title = "#{ post.title }".squish.strip
+  end
+
+  # DESCRIPTION
+  descr = meta.description.to_s.squish.strip
+  descr = descr.present? ? descr : Sanitize.clean(post.intro.to_s).squish.strip[0..180]
+  descr = descr.strip
+
+  # KEYWORDS
+  keywords  = meta.keywords.to_s.squish.strip.gsub(/\s*,\s*/, ',')
+  keywords  = keywords.present? ? keywords : [ post.inline_tags ].join(',').squish.strip.gsub(/\s*,\s*/, ',')
+  keywords  = keywords.strip
+
+  # AUTHOR
+  author = meta.author
+
+
+  author = author.present? ? meta.author : "HAKUSHU.IO"
+  author = author.strip
+
+  # TIME format
+  tshift   = post.created_at.strftime("%z")
+  tshift   = [ tshift[0..2], tshift[3..4] ].join(':')
+  pub_time = post.created_at.strftime("%FT%R:%S#{ tshift }")
+  mod_time = post.updated_at.strftime("%FT%R:%S#{ tshift }")
+
+  # OG: IMAGE
+  og_image = post.main_image.present? ? image_url(post.main_image.file.url(:original)) : nil
+  og_image = meta.og_image.present?   ? meta.og_image : og_image
+  og_image = og_image.strip
+
+  # OG: TITLE, DESCRIPTION, SITE NAME, TYPE, URL
+  og_title = meta.og_title.present?       ? meta.og_title       : title
+  og_descr = meta.og_description.present? ? meta.og_description : descr
+  og_sname = meta.og_site_name.present?   ? meta.og_site_name   : 'HAKUSHU.IO'
+  og_type  = meta.og_type.present?        ? meta.og_type        : 'article'
+  og_url   = meta.og_url.present?         ? meta.og_url         : request.original_url
+
+  og_title = og_title.strip
+  og_descr = og_descr.strip
+  og_sname = og_sname.strip
+  og_type  = og_type.strip
+  og_url   = og_url.strip
+
+- content_for :title, flush: true do
+  = title
+
+- content_for :meta_tags do
+
+  meta name='author'      content=author
+  meta name='keywords'    content=keywords
+  meta name='description' content=descr
+
+  / =============== OPEN GRAPH ===============
+  / http://ogp.me/#no_vertical
+
+  - if og_image.present?
+    meta property='og:image' content=og_image
+
+  meta property='og:title'       content=og_title
+  meta property='og:description' content=og_descr
+  meta property='og:site_name'   content=og_sname
+
+  meta property='og:author' content=author
+
+  meta itemprop='name'    content=author
+  meta property='og:type' content=og_type
+  meta property='og:url' itemprop='url' content=og_url
+
+  - post.hubs.each do |hub|
+    meta property="#{ og_type }:Section" content=hub.title.strip
+
+  meta property="#{ og_type }:Name" content=og_title
+
+  meta property="#{ og_type }:published_time" content=pub_time
+  meta property="#{ og_type }:modified_time"  content=mod_time
+
+  - keywords.split(',').each do |tag|
+    meta property="#{ og_type }:tag" content=tag.to_s.strip
