@@ -90,13 +90,13 @@ ruby:
   - if og_image.present?
     meta property='og:image' content=og_image
 
-  meta property='og:author'      content=author
-  meta property='og:type'        content='article'
   meta property='og:locale'      content='ru_RU'
+  meta property='og:type'        content='article'
   meta property='og:title'       content=og_title
   meta property='og:description' content=og_descr
   meta property='og:site_name'   content=og_sname
   meta property='og:url'         content=og_url
+  meta property='og:author'      content=default_fb_author
 
   / =============== FACEBOOK ARTICLE TAGS ===============
   / https://developers.facebook.com/docs/reference/opengraph/object-type/article
