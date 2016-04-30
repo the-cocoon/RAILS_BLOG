@@ -7,6 +7,7 @@ ruby:
   default_domain = 'hakushu.io'
   default_author = 'HAKUSHU.IO'
   default_site_name = t('app.site_name')
+  default_fb_author = 'https://www.facebook.com/elena.tsoy.35'
 
   def txt_prepare var
     var.to_s.squish.strip
@@ -104,8 +105,8 @@ ruby:
   meta property='article:published_time' content=pub_time
   meta property='article:modified_time'  content=mod_time
 
-  -# meta property='article:author'    content='Facebook profile ID/URL'
-  -# meta property='article:publisher' content='Facebook profile ID/URL'
+  meta property='article:author'    content=default_fb_author
+  meta property='article:publisher' content=defailt_fb_author
 
   - article.hubs.each do |hub|
     meta property='article:section' content=txt_prepare(hub.title)
