@@ -1,8 +1,19 @@
 ruby:
+  # http://vk.com/dev/pages.clearCache
+  # https://developers.facebook.com/tools/debug/og/object/
+
   meta = article.meta_data
+
+  default_domain = 'hakushu.io'
+  default_author = 'HAKUSHU.IO'
+  default_site_name = t('app.site_name')
 
   def txt_prepare var
     var.to_s.squish.strip
+  end
+
+  def txt_compact var
+    var.to_s.gsub(/\s*,\s*/, ',')
   end
 
   # TITLE
@@ -21,12 +32,13 @@ ruby:
   # KEYWORDS
   keywords  = txt_prepare(meta.keywords)
   keywords  = keywords.present? ? keywords : article.pub_tags.pluck(:title).join(',')
-  keywords  = txt_prepare(keywords).gsub(/\s*,\s*/, ',')
+  keywords  = txt_prepare(keywords)
+  keywords  = txt_compact(keywords)
 
   # AUTHOR
   author = meta.author
 
-  author = author.present? ? meta.author : "HAKUSHU.IO"
+  author = author.present? ? meta.author : default_author
   author = txt_prepare(author)
 
   # TIME format
@@ -43,7 +55,7 @@ ruby:
   # OG: TITLE, DESCRIPTION, SITE NAME, URL
   og_title = meta.og_title.present?       ? meta.og_title       : title
   og_descr = meta.og_description.present? ? meta.og_description : descr
-  og_sname = meta.og_site_name.present?   ? meta.og_site_name   : t('app.site_name')
+  og_sname = meta.og_site_name.present?   ? meta.og_site_name   : default_site_name
   og_url   = meta.og_url.present?         ? meta.og_url         : request.original_url
 
   og_title = txt_prepare(og_title)
@@ -51,48 +63,57 @@ ruby:
   og_sname = txt_prepare(og_sname)
   og_url   = txt_prepare(og_url)
 
-  domain = 'hakushu.io'
+/ NOTES:
+/ best IMG size: 968×504
+/ http://ogp.me/#no_vertical
 
 - content_for :title, flush: true do
   = title
 
 - content_for :meta_tags do
 
+  / =============== HTML META TAGS ===============
+
   meta name='author'      content=author
   meta name='keywords'    content=keywords
   meta name='description' content=descr
 
-  / =============== OPEN GRAPH ===============
-  / http://ogp.me/#no_vertical
+  / =============== GOOGLE ===============
 
-  / http://vk.com/dev/pages.clearCache
-  / https://developers.facebook.com/tools/debug/og/object/
-
-  / 968×504
   meta itemprop='name'        content=author
   meta itemprop='url'         content=og_url
   meta itemprop='description' content=og_descr
 
+  / =============== OPEN GRAPH ===============
+
   - if og_image.present?
     meta property='og:image' content=og_image
 
+  meta property='og:author'      content=author
   meta property='og:type'        content='article'
   meta property='og:locale'      content='ru_RU'
   meta property='og:title'       content=og_title
   meta property='og:description' content=og_descr
   meta property='og:site_name'   content=og_sname
-  meta property='og:author'      content=author
   meta property='og:url'         content=og_url
 
-  - article.hubs.each do |hub|
-    meta property='article:section' content=txt_prepare(hub.title)
+  / =============== FACEBOOK ARTICLE TAGS ===============
+  / https://developers.facebook.com/docs/reference/opengraph/object-type/article
 
   meta property='article:name'           content=og_title
   meta property='article:published_time' content=pub_time
   meta property='article:modified_time'  content=mod_time
 
+  -# meta property='article:author'    content='Facebook profile ID/URL'
+  -# meta property='article:publisher' content='Facebook profile ID/URL'
+
+  - article.hubs.each do |hub|
+    meta property='article:section' content=txt_prepare(hub.title)
+
   - keywords.split(',').each do |tag|
     meta property='article:tag' content=txt_prepare(tag)
+
+  / =============== TWITTER TAGS ===============
 
   - if og_image.present?
     meta name='twitter:image:src' content=og_image
@@ -101,6 +122,6 @@ ruby:
   meta name='twitter:title'       content=og_title
   meta name='twitter:description' content=og_descr
   meta name='twitter:creator'     content=author
-  meta name='twitter:domain'      content=domain
+  meta name='twitter:domain'      content=default_domain
   meta name='twitter:site'        content=og_sname
   meta name='twitter:url'         content=og_url
