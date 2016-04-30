@@ -7,7 +7,7 @@ $(document).on 'ready page:load', ->
   ScriptLoader.load 'https://connect.ok.ru/connect.js', ->
     OK_Script.init()
 
-  ScriptLoader.load 'https://userapi.com/js/api/openapi.js?49', ->
+  ScriptLoader.load '//vk.com/js/api/openapi.js?121', ->
     VK_Script.init('5358594')
 
   # ScriptLoader.load 'https://connect.ok.ru/connect.js', ->
