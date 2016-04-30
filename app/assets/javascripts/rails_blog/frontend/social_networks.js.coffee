@@ -2,7 +2,7 @@
   init: (vk_id) ->
     @vk_init(vk_id)
     @likes()
-    @group()
+    # @group()
 
   vk_init: (vk_id) ->
     VK.init
