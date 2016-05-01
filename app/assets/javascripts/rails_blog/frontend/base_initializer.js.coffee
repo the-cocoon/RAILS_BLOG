@@ -12,6 +12,6 @@ $(document).on 'ready page:load', ->
   ScriptLoader.load 'https://userapi.com/js/api/openapi.js?49', ->
     VK_Script.init('5358594')
 
+  delete(FB)
   $('body').prepend('<div id="fb-root"></div>')
-  ScriptLoader.load '//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.6&appId=1565974410379993', ->
-    log 'FB OK'
+  ScriptLoader.force_load('//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.6&appId=1565974410379993')
