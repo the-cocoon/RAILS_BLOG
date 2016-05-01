@@ -7,8 +7,11 @@ $(document).on 'ready page:load', ->
   ScriptLoader.load 'https://connect.ok.ru/connect.js', ->
     OK_Script.init()
 
-  ScriptLoader.load '//vk.com/js/api/openapi.js?121', ->
+  # //vk.com/js/api/openapi.js?121
+  # https://userapi.com/js/api/openapi.js?49
+  ScriptLoader.load 'https://userapi.com/js/api/openapi.js?49', ->
     VK_Script.init('5358594')
 
-  # ScriptLoader.load 'https://connect.ok.ru/connect.js', ->
-  #   FB_load()
+  $('body').prepend('<div id="fb-root"></div>')
+  ScriptLoader.load '//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.6&appId=1565974410379993', ->
+    log 'FB OK'
