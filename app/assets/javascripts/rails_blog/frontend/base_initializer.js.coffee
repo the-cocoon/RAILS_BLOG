@@ -15,3 +15,8 @@ $(document).on 'ready page:load', ->
   delete(FB)
   $('body').prepend('<div id="fb-root"></div>')
   ScriptLoader.force_load('//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.6&appId=1565974410379993')
+
+  delete(twttr)
+  delete(__twttr)
+  delete(__twttrll)
+  ScriptLoader.force_load('https://platform.twitter.com/widgets.js')
