@@ -1,7 +1,8 @@
 ruby:
   # http://vk.com/dev/pages.clearCache
   # https://developers.facebook.com/tools/debug/og/object/
-  item = article
+
+  item = product
   meta = item.meta_data
 
   default_domain = 'hakushu.io'
@@ -32,7 +33,7 @@ ruby:
 
   # KEYWORDS
   keywords  = txt_prepare(meta.keywords)
-  keywords  = keywords.present? ? keywords : item.pub_tags.pluck(:title).join(',')
+  keywords  = keywords # keywords.present? ? keywords : item.pub_tags.pluck(:title).join(',')
   keywords  = txt_prepare(keywords)
   keywords  = txt_compact(keywords)
 
@@ -106,9 +107,9 @@ ruby:
   meta property='article:modified_time'  content=mod_time
 
   meta property='article:author'    content=default_fb_author
-  meta property='article:publisher' content=defailt_fb_author
+  meta property='article:publisher' content=default_fb_author
 
-  - item.hubs.each do |hub|
+  - item.shop_categories.each do |hub|
     meta property='article:section' content=txt_prepare(hub.title)
 
   - keywords.split(',').each do |tag|
