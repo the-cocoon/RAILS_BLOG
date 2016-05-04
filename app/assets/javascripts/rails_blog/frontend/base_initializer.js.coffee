@@ -34,3 +34,13 @@ $(document).on 'ready page:load', ->
     delete(window[key])
 
   ScriptLoader.force_load('//assets.pinterest.com/js/pinit.js', { 'data-pin-button': true })
+
+  # ADDTHIS
+  keys = Object.keys(window)
+  .map    (key)  -> if key.match(/^addthis|_at/) then key else null
+  .filter (item) -> return item
+
+  for key in keys
+    delete(window[key])
+
+  ScriptLoader.force_load('//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-572794a3251b095e')
