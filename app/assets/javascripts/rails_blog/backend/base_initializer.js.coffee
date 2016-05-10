@@ -25,5 +25,7 @@ doc.on "ready page:load", ->
 
   PubTags.init()
   PubTagsRels.init()
+  PubTagsSelect2.init()
+
   PubCategoryRels.init()
   RemotePubCategoryRels.init()

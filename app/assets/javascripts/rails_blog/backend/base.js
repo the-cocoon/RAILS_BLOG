@@ -19,6 +19,9 @@
 //= require components/ckeditor/init
 //= require components/ptz_editor/ptz_editor
 
+//= require components/select2-4.0.2/select2
+//= require components/select2-4.0.2/ru
+
 //= require the_sortable_tree/jquery.ui.nestedSortable
 //= require the_sortable_tree/sortable_ui/base
 
@@ -34,9 +37,8 @@
 
 //= require rails_blog/backend/remote_pub_category_rels
 //= require rails_blog/backend/pub_category_rels
+//= require rails_blog/backend/pub_tags_select2
 //= require rails_blog/backend/pub_tags_rels
 //= require rails_blog/backend/pub_tags
 
 //= require the_comments/manager
-
-//= require rails_blog/backend/base_initializer

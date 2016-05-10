@@ -5,6 +5,10 @@ class PubTagsController < RailsBlogController
 
   include ::RailsBlog::PubCategoryController
 
+  def create_tag
+    render json: params, layout: false
+  end
+
   def index
     @pub_tags = PubTag.published.min2max(:title)
   end

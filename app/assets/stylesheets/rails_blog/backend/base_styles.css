@@ -23,6 +23,9 @@
   #= require the_storages/styles
   #= require the_storages/file_types
 
+  #= require components/select2-4.0.2/select2
+  #= require components/select2-4.0.2/select2_custom
+
   #= require the_sortable_tree/sortable_ui/base
   #= require attached_images/attached_images
   #= require the_comments/manage

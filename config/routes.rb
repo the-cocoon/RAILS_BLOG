@@ -47,6 +47,7 @@ module RailsBlog
           get :manage
           get :tree
           post :rebuild
+          post :create_tag
         end
       end
 
