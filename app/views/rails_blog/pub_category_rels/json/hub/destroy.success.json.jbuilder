@@ -1,14 +1,27 @@
+category_rel_name = @category.class.name.tableize
+categories_count  = @pub.send(category_rel_name).count
+categories_count  = nil if categories_count.zero?
+
 json.set! :keep_alerts, true
 
 json.set! :flash, {
   notice: "Публикация удалена из раздела"
 }
 
-category_rel_name = @category.class.name.tableize
-categories_count  = @pub.send(category_rel_name).count
-
 json.set! :html_content, {
   set_html: {
-    ".js--#{ category_rel_name.dasherize }--count" => categories_count
+    '.js--hubs--count' => categories_count
+  },
+  props: {
+    "#pub_category_#{ @category.id }" => {
+      checked: false
+    },
+    "[data-pub-category-id=#{ @category.id }]" => {
+      selected: false
+    }
   }
 }
+
+json.set! :js_exec, [
+  { "PubCategoryRelsSelect2.update_select2" => true }
+]
