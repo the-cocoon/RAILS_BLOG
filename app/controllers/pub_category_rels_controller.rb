@@ -27,7 +27,7 @@ class PubCategoryRelsController < RailsBlogController
     @pub.keep_consistency!
 
     respond_to do |format|
-      format.json { render template: "pub_category_rels/json/#{ render_type }create.success.json.jbuilder" }
+      format.json { render json_template(:create, :success) }
     end
   end
 
@@ -35,12 +35,19 @@ class PubCategoryRelsController < RailsBlogController
     PubCategoryRel.where(category: @category, item: @pub).delete_all
 
     respond_to do |format|
-      format.json { render template: "pub_category_rels/json/#{ render_type }destroy.success.json.jbuilder" }
+      format.json { render json_template(:destroy, :success) }
     end
   end
 
-  def render_type
-    "#{ params[:render_type] }_" if params[:render_type]
+  def json_template action, state
+    {
+      layout: false,
+      template: "pub_category_rels/json/#{ category_name }/#{ action }.#{ state }.json.jbuilder"
+    }
+  end
+
+  def category_name
+    params[:category_type]
   end
 
   def set_category

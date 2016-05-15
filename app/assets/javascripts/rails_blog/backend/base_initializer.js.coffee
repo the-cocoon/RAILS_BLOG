@@ -28,4 +28,4 @@ doc.on "ready page:load", ->
   PubTagsSelect2.init()
 
   PubCategoryRels.init()
-  RemotePubCategoryRels.init()
+  PubCategoryRelsSelect2.init()

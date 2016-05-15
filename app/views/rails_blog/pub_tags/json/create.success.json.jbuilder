@@ -10,5 +10,8 @@ json.set! :flash, {
 json.set! :html_content, {
   append: {
     '.js--pub-tags-new' => link
+  },
+  set_value: {
+    '.js--new-pub-tag-form' => ''
   }
 }

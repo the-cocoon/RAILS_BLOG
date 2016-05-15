@@ -13,8 +13,8 @@ module PubCategoryRelsManagerHelper
 
       def render_node(h, options)
         node = options[:node]
-        @h, @options   = h, options
-        @selected_pub_categories = Array.wrap options[:selected_pub_categories]
+        @h, @options = h, options
+        @used_in_ids = Array.wrap options[:used_in_ids]
 
         "
           <li data-node-id='#{ node.id }'>
@@ -40,15 +40,13 @@ module PubCategoryRelsManagerHelper
 
       def checkbox
         node = options[:node]
-        _id  = [ node.class, node.id  ].join '_'
 
-        category_id = _id
-
-        checked = @selected_pub_categories.include?([node.id, node.class.to_s])
-        data    = { 'category-id' => node.id, 'category-type' => node.class.to_s }
+        category_id = "pub_category_#{ node.id }"
+        checked     = @used_in_ids.include?(node.id)
+        data        = { id: node.id, class: node.class.to_s.tableize.singularize.dasherize }
 
         "<div class='mr15'>
-          #{ h.check_box_tag category_id, 1, checked, { autocomplete: :off, data: data, class: 'js--pub-category-rels--checkbox' } }
+          #{ h.check_box_tag category_id, 1, checked, { autocomplete: :off, data: data, class: 'js--pub-category-rel--checkbox' } }
           #{ h.label_tag category_id, '', for: category_id }
         </div>"
       end

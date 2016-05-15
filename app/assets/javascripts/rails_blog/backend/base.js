@@ -35,8 +35,10 @@
 
 //= require attached_images/attached_images
 
-//= require rails_blog/backend/remote_pub_category_rels
+
+//= require rails_blog/backend/pub_category_rels_select2
 //= require rails_blog/backend/pub_category_rels
+
 //= require rails_blog/backend/pub_tags_select2
 //= require rails_blog/backend/pub_tags_rels
 //= require rails_blog/backend/pub_tags

@@ -65,6 +65,7 @@ module RailsBlog
         @pub_category.try(:keep_consistency_after_update!)
         pub_category_update_success
       else
+        pub_category_reset_changes
         pub_category_update_failure
       end
     end
@@ -105,6 +106,12 @@ module RailsBlog
     def set_editable_pub_category
       @pub_category = pub_category_klass.for_manage.friendly_first(params[:id])
       return page_404 unless @pub_category
+    end
+
+    def pub_category_reset_changes
+      if @pub_category.changes[:slug]
+        @pub_category.slug = @pub_category.changes[:slug].first
+      end
     end
 
     def pub_category_params

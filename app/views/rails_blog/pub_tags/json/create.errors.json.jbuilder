@@ -1,4 +1,4 @@
-json.set! :keep_alerts, false
+json.set! :keep_alerts, true
 
 json.set! :flash, {
   error: "Возникли ошибки"

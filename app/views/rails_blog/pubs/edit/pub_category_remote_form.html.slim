@@ -1,9 +1,0 @@
-= form_tag pub_category_rels_url, remote: true, data: { type: :json }, class: 'js--pub-category-rels--form' do
-  = hidden_field_tag :pub_type, @pub.class
-  = hidden_field_tag :pub_id,   @pub.id
-
-  = hidden_field_tag :category_type
-  = hidden_field_tag :category_id
-
-  = hidden_field_tag :render_type
-  = hidden_field_tag :checked

@@ -1,43 +1,56 @@
+.hidden style='display:none'
+  = form_for PubTag.new, remote: true, html: { class: 'js--pub-tags-new--select-2-form' } do |f|
+    = f.hidden_field :title, autocomplete: :off
+
+  = form_tag '#', remote: true, class: 'js--shop-category-rels--form', data: { type: :json } do
+    = hidden_field_tag :category_type, :PubTag
+    = hidden_field_tag :category_id, '?'
+
+    = hidden_field_tag :pub_type, @pub.class
+    = hidden_field_tag :pub_id,   @pub.id
+
+    = hidden_field_tag :checked
+
 ruby:
-  tags     = pub.pub_tags
+  tags = pub.pub_tags
+
   pub_tags = PubTag.published.min2max(:title)
   pub_tags = pub_tags.group_by{|u| u.title.first.mb_chars.upcase.ord }
 
   rus, eng = pub_tags.partition{|item| item.first > 1000 }
   rus_tags = rus.sort
   eng_tags = eng.sort
+
   sorted_tags = rus_tags + eng_tags
   sorted_tags = sorted_tags.map(&:last).flatten
 
-.ma.w1000.mb40
-  - selected_tags = tags.map{|pub_tag| pub_tag.slug }
-  - tag_options = options_for_select(sorted_tags.map{|pub_tag| [pub_tag.title, pub_tag.slug] }, selected_tags)
-  = select_tag :pub_tags_selector, tag_options, multiple: :multiple, autocomplete: :off, class: 'pub-tags-select2 w80p', placeholder: 'Выбор тегов'
+  selected_tags = tags.map{|pub_tag| pub_tag.slug }
+  tag_options = options_for_select(sorted_tags.map{|pub_tag| [pub_tag.title, pub_tag.slug] }, selected_tags)
 
-.ma.w1000.mb40(class='js--pub-tags--selected')
-  - tags.each do |tag|
-    = link_to jsvoid, remote: true, data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }, class: "js--pub-tags--selected--#{ tag.slug } js--pub-tags-rels--delete ptz--btn ptz--size-13 mr5 mb5 b"
-      = tag.title
+.ma.w1000.mb40
+  = select_tag :pub_tags_selector, tag_options, multiple: :multiple, autocomplete: :off, class: 'js--pub-tags-select2 pub-tags-select2 w80p', placeholder: 'Выбор тегов'
 
 .ma.w1000
-  .mt40.mb40.fs26 Русский алфавит
+  - if rus_tags.size > 0
+    .mt40.mb40.fs26 Русский алфавит
 
-  - rus_tags.each do |alpha, glossary_array|
-    .fs18.mb15= alpha.chr
-    .mb20
-      - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
-        - if tags.include?(tag)
-          = link_to tag.title, jsvoid, class: "js--pub-tags--current--#{ tag.slug } js--pub-tags-rels--delete ptz--btn ptz--size-13 mr5 mb5 b", data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
-        - else
-          = link_to tag.title, jsvoid, class: "js--pub-tags--regular--#{ tag.slug } js--pub-tags-rels--create ptz--btn ptz--size-13 mr5 mb5", remote: true, data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
+    - rus_tags.each do |alpha, glossary_array|
+      .fs18.mb15= alpha.chr
+      .mb20
+        - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
+          - if tags.include?(tag)
+            = link_to tag.title, jsvoid, class: "js--pub-tags--current--#{ tag.slug } js--pub-tags-rels--delete ptz--btn ptz--size-13 mr5 mb5 b", data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
+          - else
+            = link_to tag.title, jsvoid, class: "js--pub-tags--regular--#{ tag.slug } js--pub-tags-rels--create ptz--btn ptz--size-13 mr5 mb5", remote: true, data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
 
-  .mt40.mb40.fs26 Английский алфавит
+  - if eng_tags.size > 0
+    .mt40.mb40.fs26 Английский алфавит
 
-  - eng_tags.each do |alpha, glossary_array|
-    .fs18.mb15= alpha.chr
-    .mb20
-      - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
-        - if tags.include?(tag)
-          = link_to tag.title, jsvoid, class: "js--pub-tags--current--#{ tag.slug } js--pub-tags-rels--delete ptz--btn ptz--size-13 mr5 mb5 b", data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
-        - else
-          = link_to tag.title, jsvoid, class: "js--pub-tags--regular--#{ tag.slug } js--pub-tags-rels--create ptz--btn ptz--size-13 mr5 mb5", remote: true, data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
+    - eng_tags.each do |alpha, glossary_array|
+      .fs18.mb15= alpha.chr
+      .mb20
+        - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
+          - if tags.include?(tag)
+            = link_to tag.title, jsvoid, class: "js--pub-tags--current--#{ tag.slug } js--pub-tags-rels--delete ptz--btn ptz--size-13 mr5 mb5 b", data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
+          - else
+            = link_to tag.title, jsvoid, class: "js--pub-tags--regular--#{ tag.slug } js--pub-tags-rels--create ptz--btn ptz--size-13 mr5 mb5", remote: true, data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }

@@ -8,27 +8,28 @@
 
   .mb60
     .app--div-1.p20
-      = form_for PubTag.new, remote: true, html: { class: 'js--pub-tags-new--form' } do |f|
-        .mb25= f.text_field :title, class: 'ptz--input ptz--size-15 w500', placeholder: 'Имя нового тега', autocomplete: :off
-        = f.submit 'Создать новый тег', class: 'ptz--btn ptz--size-15'
+      = render template: 'new_form'
 
     .js--pub-tags-new.mt20
 
-  - pub_tags = @pub_tags.group_by{|u| u.title.first.mb_chars.upcase.ord }
-  - rus, eng = pub_tags.partition{|item| item.first > 1000 }
+  ruby:
+    pub_tags = @pub_tags.group_by{|u| u.title.first.mb_chars.upcase.ord }
+    rus, eng = pub_tags.partition{|item| item.first > 1000 }
 
-  .mt40.mb40.fs26 Русский алфавит
+  - if rus.size > 0
+    .mt40.mb40.fs26 Русский алфавит
 
-  - rus.sort.each do |alpha, glossary_array|
-    .fs18.mb15= alpha.chr
-    .mb20
-      - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
-        = link_to tag.title, [:edit, tag], class: "pub-tags--state-#{tag.state} ptz--btn ptz--size-13 mr5 mb5"
+    - rus.sort.each do |alpha, glossary_array|
+      .fs18.mb15= alpha.chr
+      .mb20
+        - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
+          = link_to tag.title, [:edit, tag], class: "pub-tags--state-#{tag.state} ptz--btn ptz--size-13 mr5 mb5"
 
-  .mt40.mb40.fs26 Английский алфавит
+  - if eng.size > 0
+    .mt40.mb40.fs26 Английский алфавит
 
-  - eng.sort.each do |alpha, glossary_array|
-    .fs18.mb15= alpha.chr
-    .mb20
-      - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
-        = link_to tag.title, [:edit, tag], class: "pub-tags--state-#{tag.state} ptz--btn ptz--size-13 mr5 mb5"
+    - eng.sort.each do |alpha, glossary_array|
+      .fs18.mb15= alpha.chr
+      .mb20
+        - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
+          = link_to tag.title, [:edit, tag], class: "pub-tags--state-#{tag.state} ptz--btn ptz--size-13 mr5 mb5"

@@ -1,5 +1,29 @@
+.hidden style='display:none'
+  = form_tag pub_category_rels_url, remote: true, data: { type: :json }, class: 'js--pub-category-rels--form' do
+    = hidden_field_tag :category_type, '?'
+    = hidden_field_tag :category_id,   '?'
+
+    = hidden_field_tag :pub_type, @pub.class
+    = hidden_field_tag :pub_id,   @pub.id
+
+    = hidden_field_tag :render_type
+    = hidden_field_tag :checked
+
+ruby:
+  all_hubs      = @hubs
+  selected_hubs = @pub.hubs
+  selected_hubs_ids = selected_hubs.pluck(:id)
+
+  selected_hubs_opts = selected_hubs.map{|hub| hub.slug }
+  hub_options = options_for_select(all_hubs.map{|hub| [hub.title, hub.slug, { data: { 'pub-category-id' => hub.id } }] }, selected_hubs_opts)
+  options = {}
+
+.mb40
+  .mb15.fs15 Выбрать раздел для публикации из списка
+  = select_tag :hubs_selector, hub_options, { multiple: :multiple, autocomplete: :off, class: 'pub-category-rels-select2 js--pub-category-rels-select2 w80p', placeholder: 'Выбрать раздел' }.merge(options)
+
 div(ptz--tabs-scope='pub-edit')
   .ptz--theme-0
-    - selected_pub_categories = @pub.pub_category_rels.pluck(:category_id, :category_type)
+    .mb15.fs15 Выбрать раздел для публикации
     ol.the-sortable-tree.the-sortable-tree--list(data={ max_levels: 5 })
-      = sortable_tree @hubs, render_module: PubCategoryRelsManagerHelper, selected_pub_categories: selected_pub_categories
+      = sortable_tree @hubs, render_module: PubCategoryRelsManagerHelper, used_in_ids: selected_hubs_ids
