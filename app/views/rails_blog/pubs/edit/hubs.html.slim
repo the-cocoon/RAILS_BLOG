@@ -1,6 +1,6 @@
 .hidden style='display:none'
-  = form_tag pub_category_rels_url, remote: true, data: { type: :json }, class: 'js--pub-category-rels--form' do
-    = hidden_field_tag :category_type, '?'
+  = form_tag pub_category_rels_url, remote: true, data: { type: :json }, class: 'js--hub-rels--form' do
+    = hidden_field_tag :category_type, :Hub
     = hidden_field_tag :category_id,   '?'
 
     = hidden_field_tag :pub_type, @pub.class
@@ -15,12 +15,12 @@ ruby:
   selected_hubs_ids = selected_hubs.pluck(:id)
 
   selected_hubs_opts = selected_hubs.map{|hub| hub.slug }
-  hub_options = options_for_select(all_hubs.map{|hub| [hub.title, hub.slug, { data: { 'pub-category-id' => hub.id } }] }, selected_hubs_opts)
+  hub_options = options_for_select(all_hubs.map{|hub| [hub.title, hub.slug, { class: "js--hub-select2-option--#{ hub.id }", data: { 'id' => hub.id } }] }, selected_hubs_opts)
   options = {}
 
 .mb40
   .mb15.fs15 Выбрать раздел для публикации из списка
-  = select_tag :hubs_selector, hub_options, { multiple: :multiple, autocomplete: :off, class: 'pub-category-rels-select2 js--pub-category-rels-select2 w80p', placeholder: 'Выбрать раздел' }.merge(options)
+  = select_tag :hubs_selector, hub_options, { multiple: :multiple, autocomplete: :off, class: 'pub-category-rels-select2 js--hub-rels-select2 w80p', placeholder: 'Выбрать раздел' }.merge(options)
 
 div(ptz--tabs-scope='pub-edit')
   .ptz--theme-0

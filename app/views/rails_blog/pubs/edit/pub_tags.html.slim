@@ -1,8 +1,8 @@
 .hidden style='display:none'
-  = form_for PubTag.new, remote: true, html: { class: 'js--pub-tags-new--select-2-form' } do |f|
+  = form_for PubTag.new, url: create_published_pub_tags_url, remote: true, html: { class: 'js--pub-tags-new--select-2-form' } do |f|
     = f.hidden_field :title, autocomplete: :off
 
-  = form_tag '#', remote: true, class: 'js--shop-category-rels--form', data: { type: :json } do
+  = form_tag pub_category_rels_url, remote: true, class: 'js--pub-tags-rels--form', data: { type: :json } do
     = hidden_field_tag :category_type, :PubTag
     = hidden_field_tag :category_id, '?'
 

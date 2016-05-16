@@ -43,10 +43,13 @@ module PubCategoryRelsManagerHelper
 
         category_id = "pub_category_#{ node.id }"
         checked     = @used_in_ids.include?(node.id)
-        data        = { id: node.id, class: node.class.to_s.tableize.singularize.dasherize }
+        klass_name  = node.class.to_s.tableize.singularize.dasherize
+        classes     = "js--hub-checkbox--#{ node.id } js--#{ klass_name }-rels--checkbox"
+
+        data        = { id: node.id, class: klass_name }
 
         "<div class='mr15'>
-          #{ h.check_box_tag category_id, 1, checked, { autocomplete: :off, data: data, class: 'js--pub-category-rel--checkbox' } }
+          #{ h.check_box_tag category_id, 1, checked, { autocomplete: :off, data: data, class: classes } }
           #{ h.label_tag category_id, '', for: category_id }
         </div>"
       end

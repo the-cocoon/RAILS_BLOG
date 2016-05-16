@@ -13,15 +13,15 @@ json.set! :html_content, {
     '.js--hubs--count' => categories_count
   },
   props: {
-    "#pub_category_#{ @category.id }" => {
+    ".js--hub-checkbox--#{ @category.id }" => {
       checked: false
     },
-    "[data-pub-category-id=#{ @category.id }]" => {
+    ".js--hub-select2-option--#{ @category.id }" => {
       selected: false
     }
   }
 }
 
 json.set! :js_exec, [
-  { "PubCategoryRelsSelect2.update_select2" => true }
+  { "HubRelsSelect2.update_select2" => true }
 ]

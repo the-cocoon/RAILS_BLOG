@@ -5,7 +5,7 @@ class PubTagsController < RailsBlogController
 
   include ::RailsBlog::PubCategoryController
 
-  def create_tag
+  def create_published
     render json: params, layout: false
   end
 

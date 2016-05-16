@@ -61,10 +61,10 @@
           .mb30= render template: 'meta_data/edit/meta_data', locals: { item: @pub }
 
       .ptz--tabs--content-item(ptz--tab-content='hubs')
-        .ptz--theme-0= render template: 'pubs/edit/hub_items_rels'
+        .ptz--theme-0= render template: 'pubs/edit/hubs'
 
       .ptz--tabs--content-item(ptz--tab-content='pub_tags')
-        .ptz--theme-0= render template: 'rails_blog/pub_tags/pub_list', locals: { pub: @pub }
+        .ptz--theme-0= render template: 'pubs/edit/pub_tags', locals: { pub: @pub }
 
       .ptz--tabs--content-item(ptz--tab-content='rel-pubs')
         .fs15 Здесь будет можно указать связанные посты

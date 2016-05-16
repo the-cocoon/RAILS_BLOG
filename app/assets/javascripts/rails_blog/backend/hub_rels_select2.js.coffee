@@ -8,16 +8,16 @@
 # 'select2:unselecting'
 # 'select2:unselect'
 
-@PubCategoryRelsSelect2 = do ->
+@HubRelsSelect2 = do ->
   update_select2: ->
-    $('.js--pub-category-rels-select2').trigger('change')
+    $('.js--hub-rels-select2').trigger('change')
 
   init: ->
     @inited ||= do =>
       $(document).on 'click', '[ptz--tab-id=hubs]', ->
-        $('.js--pub-category-rels-select2').select2()
+        $('.js--hub-rels-select2').select2()
 
-    for select2 in $('.js--pub-category-rels-select2')
+    for select2 in $('.js--hub-rels-select2')
       selector = $ select2
 
       options     = selector.data('options') || {}
@@ -38,18 +38,18 @@
 
       selector.on 'select2:select', (e) =>
         option = $ e.params.data.element
-        form   = $('.js--pub-category-rels--form')
+        form   = $('.js--hub-rels--form')
 
-        form.find('[name=category_id]').val option.data('pub-category-id')
+        form.find('[name=category_id]').val option.data('id')
         form.find('[name=checked]').val 1
 
         form.submit()
 
       selector.on 'select2:unselect', (e) =>
         option = $ e.params.data.element
-        form   = $('.js--pub-category-rels--form')
+        form   = $('.js--hub-rels--form')
 
-        form.find('[name=category_id]').val option.data('pub-category-id')
+        form.find('[name=category_id]').val option.data('id')
         form.find('[name=checked]').val 0
 
         form.submit()

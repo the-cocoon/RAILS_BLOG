@@ -24,8 +24,9 @@ doc.on "ready page:load", ->
   TheCommentsManager.init()
 
   PubTags.init()
+
   PubTagsRels.init()
   PubTagsSelect2.init()
 
-  PubCategoryRels.init()
-  PubCategoryRelsSelect2.init()
+  HubRels.init()
+  HubRelsSelect2.init()
