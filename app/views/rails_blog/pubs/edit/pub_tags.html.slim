@@ -1,8 +1,9 @@
 .hidden style='display:none'
-  = form_for PubTag.new, url: create_published_pub_tags_url, remote: true, html: { class: 'js--pub-tags-new--select-2-form' } do |f|
-    = f.hidden_field :title, autocomplete: :off
+  = form_for PubTag.new, url: create_published_pub_tags_url, remote: true, data: { type: :json }, html: { class: 'js--pub-tag-create-and-pub--form' } do |f|
+    = hidden_field_tag :title, autocomplete: :off
 
-  = form_tag pub_category_rels_url, remote: true, class: 'js--pub-tags-rels--form', data: { type: :json } do
+.hidden style='display:none'
+  = form_tag pub_category_rels_url, remote: true, class: 'js--pub-tag-rels--form', data: { type: :json } do
     = hidden_field_tag :category_type, :PubTag
     = hidden_field_tag :category_id, '?'
 
@@ -25,10 +26,18 @@ ruby:
   sorted_tags = sorted_tags.map(&:last).flatten
 
   selected_tags = tags.map{|pub_tag| pub_tag.slug }
-  tag_options = options_for_select(sorted_tags.map{|pub_tag| [pub_tag.title, pub_tag.slug] }, selected_tags)
+
+  tag_options = options_for_select(sorted_tags.map do |pub_tag|
+    html_params = {
+      class: "js--pub-tag-select2-option--#{ pub_tag.id }",
+      data: { id: pub_tag.id }
+    }
+
+    [pub_tag.title, pub_tag.slug, html_params]
+  end, selected_tags)
 
 .ma.w1000.mb40
-  = select_tag :pub_tags_selector, tag_options, multiple: :multiple, autocomplete: :off, class: 'js--pub-tags-select2 pub-tags-select2 w80p', placeholder: 'Выбор тегов'
+  = select_tag :pub_tags_selector, tag_options, multiple: :multiple, autocomplete: :off, class: 'js--pub-tag-select2 pub-tag-select2 w80p', placeholder: 'Выбор тегов'
 
 .ma.w1000
   - if rus_tags.size > 0
@@ -38,10 +47,14 @@ ruby:
       .fs18.mb15= alpha.chr
       .mb20
         - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
+          ruby:
+            basic_css  = "js--pub-tag--#{ tag.slug } js--pub-tag--btn pub-tag--btn ptz--btn ptz--size-13 mr5 mb5"
+            basic_data = { class: tag.class.to_s, id: tag.id }
+
           - if tags.include?(tag)
-            = link_to tag.title, jsvoid, class: "js--pub-tags--current--#{ tag.slug } js--pub-tags-rels--delete ptz--btn ptz--size-13 mr5 mb5 b", data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
+            = link_to tag.title, jsvoid, class: "#{ basic_css } selected", data: basic_data
           - else
-            = link_to tag.title, jsvoid, class: "js--pub-tags--regular--#{ tag.slug } js--pub-tags-rels--create ptz--btn ptz--size-13 mr5 mb5", remote: true, data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
+            = link_to tag.title, jsvoid, class: "#{ basic_css } regular", data: basic_data
 
   - if eng_tags.size > 0
     .mt40.mb40.fs26 Английский алфавит
@@ -50,7 +63,11 @@ ruby:
       .fs18.mb15= alpha.chr
       .mb20
         - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
+          ruby:
+            basic_css  = "js--pub-tag--#{ tag.slug } js--pub-tag--btn pub-tag--btn ptz--btn ptz--size-13 mr5 mb5"
+            basic_data = { class: tag.class.to_s, id: tag.id }
+
           - if tags.include?(tag)
-            = link_to tag.title, jsvoid, class: "js--pub-tags--current--#{ tag.slug } js--pub-tags-rels--delete ptz--btn ptz--size-13 mr5 mb5 b", data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
+            = link_to tag.title, jsvoid, class: "#{ basic_css } selected", data: basic_data
           - else
-            = link_to tag.title, jsvoid, class: "js--pub-tags--regular--#{ tag.slug } js--pub-tags-rels--create ptz--btn ptz--size-13 mr5 mb5", remote: true, data: { 'category-type' => tag.class.to_s, 'category-id' => tag.id }
+            = link_to tag.title, jsvoid, class: "#{ basic_css } regular", data: basic_data

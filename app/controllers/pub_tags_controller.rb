@@ -6,7 +6,17 @@ class PubTagsController < RailsBlogController
   include ::RailsBlog::PubCategoryController
 
   def create_published
-    render json: params, layout: false
+    @pub_category = current_user.send(pub_category_name).new(title: params[:title])
+    @pub_category.content_processing_for(current_user)
+
+    if @pub_category.save
+      @pub_category.published!
+      @pub_category.try(:keep_consistency_after_create!)
+
+      render layout: false, template: 'pub_tags/json/create_published.success.json.jbuilder'
+    else
+      render layout: false, template: 'pub_tags/json/create_published.errors.json.jbuilder'
+    end
   end
 
   def index

@@ -3,9 +3,20 @@
     @inited ||= do ->
       doc = $ document
 
-      doc.on 'ajax:success', '.js--pub-tags-new--form', (xhr, data, status) ->
+      # 1
+
+      doc.on 'ajax:success', '.js--pub-tag-rels--form', (xhr, data, status) ->
         JODY.processor(data)
 
-      doc.on 'ajax:error', '.js--pub-tags-new--form', (xhr, response, status, message) ->
+      doc.on 'ajax:error', '.js--pub-tag-rels--form', (xhr, response, status, message) ->
+        data = json2data(response.responseText)
+        JODY.processor(data)
+
+      # 2
+
+      doc.on 'ajax:success', '.js--pub-tag-new--form', (xhr, data, status) ->
+        JODY.processor(data)
+
+      doc.on 'ajax:error', '.js--pub-tag-new--form', (xhr, response, status, message) ->
         data = json2data(response.responseText)
         JODY.processor(data)

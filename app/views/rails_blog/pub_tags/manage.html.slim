@@ -10,7 +10,7 @@
     .app--div-1.p20
       = render template: 'new_form'
 
-    .js--pub-tags-new.mt20
+    .js--pub-tag-new.mt20
 
   ruby:
     pub_tags = @pub_tags.group_by{|u| u.title.first.mb_chars.upcase.ord }
@@ -23,7 +23,7 @@
       .fs18.mb15= alpha.chr
       .mb20
         - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
-          = link_to tag.title, [:edit, tag], class: "pub-tags--state-#{tag.state} ptz--btn ptz--size-13 mr5 mb5"
+          = link_to tag.title, [:edit, tag], class: "pub-tag--state-#{tag.state} ptz--btn ptz--size-13 mr5 mb5"
 
   - if eng.size > 0
     .mt40.mb40.fs26 Английский алфавит
@@ -32,4 +32,4 @@
       .fs18.mb15= alpha.chr
       .mb20
         - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
-          = link_to tag.title, [:edit, tag], class: "pub-tags--state-#{tag.state} ptz--btn ptz--size-13 mr5 mb5"
+          = link_to tag.title, [:edit, tag], class: "pub-tag--state-#{tag.state} ptz--btn ptz--size-13 mr5 mb5"

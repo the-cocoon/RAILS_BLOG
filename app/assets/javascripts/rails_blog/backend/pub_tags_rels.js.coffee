@@ -3,38 +3,28 @@
     @inited ||= do ->
       doc = $ document
 
-      doc.on 'click', '.js--pub-tags-rels--create', (e) ->
+      doc.on 'click', '.js--pub-tag--btn.regular', (e) ->
         tag = $ e.target
 
-        cat_id   = tag.data('category-id')
-        cat_type = tag.data('category-type')
+        id     = tag.data('id')
+        create = 1
 
-        val = 1 # create
+        form = $('.js--pub-tag-rels--form')
 
-        form = $('.js--pub-category-rels--form')
-
-        form.find('[name=category_id]').val   cat_id
-        form.find('[name=category_type]').val cat_type
-
-        form.find('[name=checked]').val val
-        form.find('[name=render_type]').val 'pub_tag'
+        form.find('[name=category_id]').val id
+        form.find('[name=checked]').val create
 
         form.submit()
 
-      doc.on 'click', '.js--pub-tags-rels--delete', (e) ->
+      doc.on 'click', '.js--pub-tag--btn.selected', (e) ->
         tag = $ e.target
 
-        cat_id   = tag.data('category-id')
-        cat_type = tag.data('category-type')
+        id  = tag.data('id')
+        del = 0
 
-        val = 0 # delete
+        form = $('.js--pub-tag-rels--form')
 
-        form = $('.js--pub-category-rels--form')
-
-        form.find('[name=category_id]').val   cat_id
-        form.find('[name=category_type]').val cat_type
-
-        form.find('[name=checked]').val val
-        form.find('[name=render_type]').val 'pub_tag'
+        form.find('[name=category_id]').val id
+        form.find('[name=checked]').val del
 
         form.submit()

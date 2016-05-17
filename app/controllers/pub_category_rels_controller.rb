@@ -47,7 +47,7 @@ class PubCategoryRelsController < RailsBlogController
   end
 
   def category_name
-    params[:category_type]
+    params[:category_type].tableize.singularize
   end
 
   def set_category

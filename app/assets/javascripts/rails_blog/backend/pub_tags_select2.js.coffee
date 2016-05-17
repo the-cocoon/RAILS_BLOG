@@ -9,14 +9,17 @@
 # 'select2:unselect'
 
 @PubTagsSelect2 = do ->
+  update_select2: ->
+    $('.js--pub-tag-select2').trigger('change')
+
   init: ->
     doc = $ document
 
     @inited ||= do =>
       doc.on 'click', '[ptz--tab-id=pub_tags]', ->
-        $('.js--pub-tags-select2').select2()
+        PubTagsSelect2.update_select2()
 
-    for select2 in $('.js--pub-tags-select2')
+    for select2 in $('.js--pub-tag-select2')
       selector    = $ select2
       placeholder = selector.attr('placeholder') || 'Укажите нужные теги'
 
@@ -31,11 +34,31 @@
         @set_options_count_for(selector)
 
       selector.on 'select2:select', (e) =>
+        pub_tag_slug = e.params.data.id
+
         if @need_to_create_tag_for(selector)
-          # fill new pub tag form
-          # submit
+          form = $('.js--pub-tag-create-and-pub--form')
+          form.find('[name=title]').val pub_tag_slug
+          form.submit()
         else
-          # create new relation
+          form   = $('.js--pub-tag-rels--form')
+          create = 1
+
+          form.find('[name=category_id]').val pub_tag_slug
+          form.find('[name=checked]').val create
+
+          form.submit()
+
+      selector.on 'select2:unselect', (e) ->
+        pub_tag_slug = e.params.data.id
+
+        form = $('.js--pub-tag-rels--form')
+        del  = 0
+
+        form.find('[name=category_id]').val pub_tag_slug
+        form.find('[name=checked]').val del
+
+        form.submit()
 
   set_options_count_for: (selector) ->
     count = selector.find('option').length
@@ -45,43 +68,3 @@
     prev = selector.data('options-count')
     curr = selector.find('option').length
     curr > prev
-
-# selector.on 'select2:open', (e) =>
-# @set_options_count_for(selector)
-
-#     selector.on 'select2:select', (e) =>
-#       if @need_to_create_tag_for(selector)
-#         $.ajax
-#           url: '/pub_tags/create_tag'
-#           method: 'POST'
-#           data:
-#             id:   e.params.data.id
-#             text: e.params.data.text
-
-#           success: (response, statusText, xhr) ->
-#             # title
-#             # slug
-
-#           error: (a,b,c) ->
-#             # selected_ary = selector.val()
-#             # del_index    = selector.val().indexOf(id)
-#             # delete selected_ary[del_index]
-#             # selector.val(selected_ary).change()
-
-#       # @set_options_count_for(selector)
-
-#     selector.on 'select2:change', (e) ->
-#       # log 'select2:change'
-#       # log e
-
-#     selector.on 'select2:unselecting', (e) ->
-#       # log 'select2:unselecting'
-#       # log e
-
-#     selector.on 'select2:unselect', (e) ->
-#       # log e.params.data.id
-#       # log e.params.data.text
-
-
-
-
