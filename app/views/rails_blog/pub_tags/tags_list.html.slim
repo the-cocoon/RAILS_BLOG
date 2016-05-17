@@ -1,0 +1,35 @@
+ruby:
+  tags = pub.pub_tags
+  rus_tags, eng_tags, sorted_tags = PubTagViewModel.get
+
+- if rus_tags.size > 0
+  .mt40.mb40.fs26 Русский алфавит
+
+  - rus_tags.each do |alpha, glossary_array|
+    .fs18.mb15= alpha.chr
+    .mb20
+      - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
+        ruby:
+          basic_css  = "js--pub-tag--#{ tag.slug } js--pub-tag--btn pub-tag--btn ptz--btn ptz--size-13 mr5 mb5"
+          basic_data = { class: tag.class.to_s, id: tag.id }
+
+        - if tags.include?(tag)
+          = link_to tag.title, jsvoid, class: "#{ basic_css } selected", data: basic_data
+        - else
+          = link_to tag.title, jsvoid, class: "#{ basic_css } regular", data: basic_data
+
+- if eng_tags.size > 0
+  .mt40.mb40.fs26 Английский алфавит
+
+  - eng_tags.each do |alpha, glossary_array|
+    .fs18.mb15= alpha.chr
+    .mb20
+      - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
+        ruby:
+          basic_css  = "js--pub-tag--#{ tag.slug } js--pub-tag--btn pub-tag--btn ptz--btn ptz--size-13 mr5 mb5"
+          basic_data = { class: tag.class.to_s, id: tag.id }
+
+        - if tags.include?(tag)
+          = link_to tag.title, jsvoid, class: "#{ basic_css } selected", data: basic_data
+        - else
+          = link_to tag.title, jsvoid, class: "#{ basic_css } regular", data: basic_data

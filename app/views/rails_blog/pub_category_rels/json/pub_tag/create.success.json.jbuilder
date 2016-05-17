@@ -1,5 +1,3 @@
-# 'rails_blog/pub_tags/current.html.slim'
-
 category_rel_name = @category.class.name.tableize
 categories_count  = @pub.send(category_rel_name).count
 categories_count  = nil if categories_count.zero?

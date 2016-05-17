@@ -1,4 +1,3 @@
-# render(template: 'rails_blog/pub_tags/regular.html.slim'
 category_rel_name = @category.class.name.tableize
 categories_count  = @pub.send(category_rel_name).count
 categories_count  = nil if categories_count.zero?
@@ -31,6 +30,7 @@ json.set! :html_content, {
     }
   }
 }
+
 json.set! :js_exec, [
   { "PubTagsSelect2.update_select2" => true }
 ]
