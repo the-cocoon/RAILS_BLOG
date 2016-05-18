@@ -1,7 +1,6 @@
 ruby:
   tags = pub.pub_tags
-
-  rus_tags, eng_tags, sorted_tags = PubTagViewModel.get
+  rus_tags, eng_tags, sorted_tags = pub_tags_sorted_list
   selected_tags = tags.map{|pub_tag| pub_tag.slug }
 
   tag_options = options_for_select(sorted_tags.map do |pub_tag|

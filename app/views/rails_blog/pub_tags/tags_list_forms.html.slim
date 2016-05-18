@@ -1,0 +1,16 @@
+.hidden style='display:none'
+  = form_for PubTag.new, url: create_published_pub_tags_url, remote: true, data: { type: :json }, html: { class: 'js--pub-tag-create-and-pub--form' } do |f|
+    = hidden_field_tag :title, autocomplete: :off
+
+    = hidden_field_tag :pub_type, pub.class
+    = hidden_field_tag :pub_id,   pub.id
+
+.hidden style='display:none'
+  = form_tag pub_category_rels_url, remote: true, class: 'js--pub-tag-rels--form', data: { type: :json } do
+    = hidden_field_tag :category_type, :PubTag
+    = hidden_field_tag :category_id, '?'
+
+    = hidden_field_tag :pub_type, pub.class
+    = hidden_field_tag :pub_id,   pub.id
+
+    = hidden_field_tag :checked

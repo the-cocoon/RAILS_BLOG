@@ -1,10 +1,6 @@
 module PubTagViewModel
   class << self
     def get
-      @result ||= get_result
-    end
-
-    def get_result
       pub_tags = PubTag.published.min2max(:title)
       pub_tags = pub_tags.group_by{|u| u.title.first.mb_chars.upcase.ord }
 

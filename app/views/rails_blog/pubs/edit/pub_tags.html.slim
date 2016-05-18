@@ -1,19 +1,9 @@
-.hidden style='display:none'
-  = form_for PubTag.new, url: create_published_pub_tags_url, remote: true, data: { type: :json }, html: { class: 'js--pub-tag-create-and-pub--form' } do |f|
-    = hidden_field_tag :title, autocomplete: :off
-
-.hidden style='display:none'
-  = form_tag pub_category_rels_url, remote: true, class: 'js--pub-tag-rels--form', data: { type: :json } do
-    = hidden_field_tag :category_type, :PubTag
-    = hidden_field_tag :category_id, '?'
-
-    = hidden_field_tag :pub_type, @pub.class
-    = hidden_field_tag :pub_id,   @pub.id
-
-    = hidden_field_tag :checked
+= render template: 'pub_tags/tags_list_forms', locals: { pub: pub }
 
 .ma.w1000.mb40
-  = render template: 'pub_tags/tags_list_select2', locals: { pub: pub }
+  .js--pub_tags_list_select2
+    = render template: 'pub_tags/tags_list_select2', locals: { pub: pub }
 
 .ma.w1000
-  = render template: 'pub_tags/tags_list', locals: { pub: pub }
+  .js--pub_tags_list
+    = render template: 'pub_tags/tags_list', locals: { pub: pub }
