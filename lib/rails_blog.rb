@@ -7,7 +7,6 @@ module RailsBlog
     config.autoload_paths << "#{ config.root }/app/mailers/concerns/"
 
     initializer :add_rails_blog_view_paths do
-
       ActiveSupport.on_load(:active_record) do
         _root_ = ::RailsBlog::Engine.config.root
         ::Rails.application.config.paths['db/migrate'] << "#{ _root_ }/db/migrate"
