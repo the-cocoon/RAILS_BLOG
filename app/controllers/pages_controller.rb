@@ -9,6 +9,10 @@ class PagesController < RailsBlogController
     headers['Access-Control-Allow-Methods'] = 'POST, GET'
     headers['Access-Control-Allow-Headers'] = '*'
     headers['Access-Control-Max-Age'] = "1728000"
+
+    headers.delete("X-Frame-Options")
+    headers.delete("X-Content-Type-Options")
+    headers.delete("X-XSS-Protection")
   end
 
   def show
