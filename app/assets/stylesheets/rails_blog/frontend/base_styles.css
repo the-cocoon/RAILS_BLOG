@@ -1,0 +1,17 @@
+/*
+  #= require ptz/reset
+  #= require ptz/base
+  #= require ptz/framework
+
+  #= require ptz/inputs-buttons/base
+  #= require ptz/inputs-buttons/sizes
+
+  #= require the_comments/base
+
+  #= require notifications/vendors/toastr
+  #= require components/toastr/style
+
+  #= require rails_blog/frontend/jq--autocomplete
+
+  #= require app_view/layout/common_styles
+*/

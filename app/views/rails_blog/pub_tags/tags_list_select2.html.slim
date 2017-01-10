@@ -1,0 +1,15 @@
+ruby:
+  tags = pub.pub_tags
+  rus_tags, eng_tags, sorted_tags = pub_tags_sorted_list
+  selected_tags = tags.map{|pub_tag| pub_tag.slug }
+
+  tag_options = options_for_select(sorted_tags.map do |pub_tag|
+    html_params = {
+      class: "js--pub-tag-select2-option--#{ pub_tag.id }",
+      data: { id: pub_tag.id }
+    }
+
+    [pub_tag.title, pub_tag.slug, html_params]
+  end, selected_tags)
+
+= select_tag :pub_tags_selector, tag_options, multiple: :multiple, autocomplete: :off, class: 'js--pub-tag-select2 pub-tag-select2 w80p', placeholder: 'Выбор тегов'

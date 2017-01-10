@@ -1,0 +1,21 @@
+- content_for :title do
+  | Порядок публикаций в разделе: #{ @category.title }
+
+= render template: 'layouts/items/header_footer'
+
+.ma.w800.mb20
+  .ptz--theme-0
+    .ptz--table.w100p
+      .ptz--td.vam.pr15= link_to @category.title, @category, class: 'ptz--btn ptz--size-14'
+      .ptz--td.vam.w100p.fs13.tar= render template: 'common/pages_and_reset'
+
+.ma.w800
+  .fs20.mb30 Порядок публикаций в разделе: "#{ @category.title }"
+
+  .ptz--theme-0
+    ol.the-sortable-tree.the-sortable-tree--list(data={ max_levels: 1, rebuild_url: rebuild_pub_category_rels_path })
+      = sortable_tree @category_items, title: :item_title, render_module: PubCategoryRelsOrderingHelper
+
+.ma.w800
+  .ptz--theme-0
+    = render template: 'common/paginator', locals: { items: @category_items }

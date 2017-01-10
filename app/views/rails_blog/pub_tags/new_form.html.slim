@@ -1,0 +1,3 @@
+= form_for PubTag.new, remote: true, html: { class: 'js--pub-tag-new--form' } do |f|
+  .mb25= f.text_field :title, class: 'ptz--input ptz--size-15 w500 js--new-pub-tag-form', placeholder: 'Имя нового тега', autocomplete: :off
+  = f.submit 'Создать новый тег', class: 'ptz--btn ptz--size-15'

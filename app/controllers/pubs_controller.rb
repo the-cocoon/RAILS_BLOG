@@ -1,38 +1,34 @@
-class PubsController < ApplicationController
-  before_action :user_require,   except: %w[ index ]
-  before_action :owner_required, except: %w[ index ]
-  before_action :admin_require,  except: %w[ index ]
-
-  layout 'rails_blog_layout'
-
+class PubsController < RailsBlogController
   def index
-    @hub  = Hub.published.friendly_first(:main)
-    @hubs = Hub.nested_set.roots.published
+    @hub       = Hub.published.friendly_first(:main)
+    @root_hubs = Hub.nested_set.roots.published
 
-    sub_sql = HubItemRel
+    sub_sql = PubCategoryRel
                 .published
-                .where(hub: @hub)
+                .where(category: @hub)
                 .select(%{ DISTINCT ON ("item_id", "item_type") * })
                 .to_sql
 
-    @pub_items = HubItemRel
-                  .from("(#{ sub_sql }) hub_item_rels")
+    @pub_items = PubCategoryRel
+                  .from("(#{ sub_sql }) pub_category_rels")
                   .includes(:item)
                   .max2min([:id])
                   .simple_sort(params)
                   .pagination(params)
   end
 
-  # Restricted area
+  # =======================================
+  # Restricted Area | Admin
+  # =======================================
 
   def manage
-    sub_sql = HubItemRel
+    sub_sql = PubCategoryRel
                 .for_manage
                 .select(%{ DISTINCT ON ("item_id", "item_type") * })
                 .to_sql
 
-    @pub_items = HubItemRel
-                  .from("(#{ sub_sql }) hub_item_rels")
+    @pub_items = PubCategoryRel
+                  .from("(#{ sub_sql }) pub_category_rels")
                   .includes(:item)
                   .max2min([:id])
                   .simple_sort(params)

@@ -1,0 +1,33 @@
+- @pub_tag = @pub_category
+
+= render template: 'app_view/layouts/items/header_footer'
+
+- content_for :title do
+  | Редактировать тег: #{ @pub_tag.title }
+
+.w800.ma.mb20
+
+  .mt20.mb20
+    span.mr20= link_to 'Просмотр по тегу', @pub_tag, class: 'ptz--btn ptz--size-14'
+    span.mr20= link_to 'Управлять тегами', [:manage, :pub_tags], class: 'ptz--btn ptz--size-14'
+
+  .mb30.fs22 Редактировать тег
+
+  = render partial: 'notifications/form', locals: { object: @pub_tag }
+
+  .ptz--tabs(ptz--tabs-scope='pub-tag-edit')
+    .ptz--tabs--holder
+      .ptz--tabs--item.ptz--tabs--active(ptz--tab-id='form') Основные данные
+      .ptz--tabs--item(ptz--tab-id='slug') URL Адрес
+      .ptz--tabs--item(ptz--tab-id='destroy') Удалить
+
+    .mt20.mb20
+
+      .ptz--tabs--content-item.ptz--tabs--active(ptz--tab-content='form')
+        .ptz--theme-0= render template: 'pub_tags/edit/form'
+
+      .ptz--tabs--content-item(ptz--tab-content='slug')
+        .ptz--theme-0= render template: 'pub_tags/edit/slug'
+
+      .ptz--tabs--content-item(ptz--tab-content='destroy')
+        .ptz--theme-0= render template: 'pub_tags/edit/destroy'

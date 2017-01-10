@@ -1,0 +1,5 @@
+= form_tag blog_search_path, method: :get, enforce_utf8: false do
+  .br-off
+    = text_field_tag :bq, @bq,  class: 'ptz--input ptz--size-15 w90p js--blog-search--bq-input', placeholder: "Поиск по сайту"
+    = button_tag type: :button, class: 'ptz--btn ptz--size-15 ptz--btn--side-right js--blog-search--submit-btn' do
+      i.fa.fa-search

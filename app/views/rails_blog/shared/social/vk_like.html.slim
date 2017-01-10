@@ -1,0 +1,15 @@
+ruby:
+  url      = polymorphic_url(pub)
+  prefix   = local_assigns[:prefix] ? prefix : ''
+  vkid     = "#{ prefix }_vk_like_#{ pub.class.to_s }_#{ pub.id }"
+
+  vk_title = CGI.escapeHTML pub.title
+  text     = Sanitize.clean(pub.intro, {})
+  text     = Sanitize.clean(pub.content, {}) if text.blank?
+  vk_text  = CGI.escapeHTML( text.noendl.strip[0..140] )
+
+  vk_image = image_url(pub.main_image.file.url(:v1024x768)) if pub.main_image.present?
+  type     = local_assigns[:type]   ? type   : 'button'
+  height   = local_assigns[:height] ? height : '24'
+
+.vk_like id=vkid url=url title=vk_title text=vk_text image=vk_image type=type height=height

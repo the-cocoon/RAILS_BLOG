@@ -1,0 +1,9 @@
+= render template: 'pub_tags/tags_list_forms', locals: { pub: pub }
+
+.ma.w1000.mb40
+  .js--pub_tags_list_select2
+    = render template: 'pub_tags/tags_list_select2', locals: { pub: pub }
+
+.ma.w1000
+  .js--pub_tags_list
+    = render template: 'pub_tags/tags_list', locals: { pub: pub }
