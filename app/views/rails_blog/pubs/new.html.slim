@@ -5,28 +5,28 @@
 
 - content_for :left_sidebar do
   .m20
-    .mb20= link_to 'Кабинет',  cabinet_path, class: 'ptz--btn ptz--size-16 w100p'
-    .mb20= link_to 'Публикации', manage_pubs_path, class: 'ptz--btn ptz--size-16 w100p'
+    .mb20= link_to 'Кабинет',  cabinet_path, class: 'ptz_btn ptz_size-16 w100p'
+    .mb20= link_to 'Публикации', manage_pubs_path, class: 'ptz_btn ptz_size-16 w100p'
 
 .m20
   .mb30.fs22 Создать Публикацию
 
   = render partial: 'notifications/form', locals: { object: @pub, format: :json }
 
-  .ptz--theme-0
-    .ptz--div-0.w800
+  .ptz_theme-0
+    .ptz_div-0.w800
       = form_for @pub do |f|
         .m20
           .mb15
             = f.label :title, 'Заголовок', class: 'block fs13 mb5'
-            = f.text_field :title, class: 'ptz--input ptz--size-15 w500', data: { role: :pub_title }
+            = f.text_field :title, class: 'ptz_input ptz_size-15 w500', data: { role: :pub_title }
 
           - if current_user.admin?
             .mb15
               = f.label :editor_type, 'Тип редактора', class: 'block fs13 mb5'
 
               - options = options_for_select({ 'Пользовательский' => 'ckeditor', 'Профессиональный' => 'ptz_editor' }, @pub.state)
-              = f.select :editor_type, options, {}, autocomplete: :off, class: 'ptz--input ptz--select ptz--size-15 w200'
+              = f.select :editor_type, options, {}, autocomplete: :off, class: 'ptz_input ptz_select ptz_size-15 w200'
 
           .tal
-            = f.submit 'Создать', class: 'ptz--btn ptz--size-20'
+            = f.submit 'Создать', class: 'ptz_btn ptz_size-20'

@@ -5,14 +5,14 @@
 
 - content_for :left_sidebar do
 
-  .ptz--theme-0.m20
-    div= link_to 'Кабинет',  cabinet_path, class: 'ptz--btn ptz--size-16 w100p'
-    hr.ptz--hr-0
-    .mb20= link_to 'Создать страницу', new_page_path, class: 'ptz--btn ptz--size-16 w100p'
-    .mb20= link_to 'Создать статью',   new_post_path, class: 'ptz--btn ptz--size-16 w100p'
+  .ptz_theme-0.m20
+    div= link_to 'Кабинет',  cabinet_path, class: 'ptz_btn ptz_size-16 w100p'
+    hr.ptz_hr-0
+    .mb20= link_to 'Создать страницу', new_page_path, class: 'ptz_btn ptz_size-16 w100p'
+    .mb20= link_to 'Создать статью',   new_post_path, class: 'ptz_btn ptz_size-16 w100p'
 
 .m20
   .fs22.mb15 Все публикации
   = render template: 'rails_blog/pubs/manager_table', locals: { pubs:  @pub_items }
-  .ptz--theme-0
+  .ptz_theme-0
     = render template: 'common/paginator',   locals: { items: @pub_items }

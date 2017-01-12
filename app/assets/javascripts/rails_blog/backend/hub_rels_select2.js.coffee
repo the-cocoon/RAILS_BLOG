@@ -14,7 +14,7 @@
 
   init: ->
     @inited ||= do =>
-      $(document).on 'click', '[ptz--tab-id=hubs]', ->
+      $(document).on 'click', '[ptz_tab-id=hubs]', ->
         $('.js--hub-rels-select2').select2()
 
     for select2 in $('.js--hub-rels-select2')

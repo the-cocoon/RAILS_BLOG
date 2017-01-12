@@ -35,7 +35,6 @@
 
 //= require attached_images/attached_images
 
-
 //= require rails_blog/backend/hub_rels_select2
 //= require rails_blog/backend/hub_rels
 

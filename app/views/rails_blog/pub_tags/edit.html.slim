@@ -8,26 +8,26 @@
 .w800.ma.mb20
 
   .mt20.mb20
-    span.mr20= link_to 'Просмотр по тегу', @pub_tag, class: 'ptz--btn ptz--size-14'
-    span.mr20= link_to 'Управлять тегами', [:manage, :pub_tags], class: 'ptz--btn ptz--size-14'
+    span.mr20= link_to 'Просмотр по тегу', @pub_tag, class: 'ptz_btn ptz_size-14'
+    span.mr20= link_to 'Управлять тегами', [:manage, :pub_tags], class: 'ptz_btn ptz_size-14'
 
   .mb30.fs22 Редактировать тег
 
   = render partial: 'notifications/form', locals: { object: @pub_tag }
 
-  .ptz--tabs(ptz--tabs-scope='pub-tag-edit')
-    .ptz--tabs--holder
-      .ptz--tabs--item.ptz--tabs--active(ptz--tab-id='form') Основные данные
-      .ptz--tabs--item(ptz--tab-id='slug') URL Адрес
-      .ptz--tabs--item(ptz--tab-id='destroy') Удалить
+  .ptz_tabs(ptz_tabs-scope='pub-tag-edit')
+    .ptz_tabs--holder
+      .ptz_tabs--item.ptz_tabs--active(ptz_tab-id='form') Основные данные
+      .ptz_tabs--item(ptz_tab-id='slug') URL Адрес
+      .ptz_tabs--item(ptz_tab-id='destroy') Удалить
 
     .mt20.mb20
 
-      .ptz--tabs--content-item.ptz--tabs--active(ptz--tab-content='form')
-        .ptz--theme-0= render template: 'pub_tags/edit/form'
+      .ptz_tabs--content-item.ptz_tabs--active(ptz_tab-content='form')
+        .ptz_theme-0= render template: 'pub_tags/edit/form'
 
-      .ptz--tabs--content-item(ptz--tab-content='slug')
-        .ptz--theme-0= render template: 'pub_tags/edit/slug'
+      .ptz_tabs--content-item(ptz_tab-content='slug')
+        .ptz_theme-0= render template: 'pub_tags/edit/slug'
 
-      .ptz--tabs--content-item(ptz--tab-content='destroy')
-        .ptz--theme-0= render template: 'pub_tags/edit/destroy'
+      .ptz_tabs--content-item(ptz_tab-content='destroy')
+        .ptz_theme-0= render template: 'pub_tags/edit/destroy'

@@ -10,7 +10,7 @@ ruby:
     .mb20
       - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
         ruby:
-          basic_css  = "js--pub-tag--#{ tag.slug } js--pub-tag--btn pub-tag--btn ptz--btn ptz--size-13 mr5 mb5"
+          basic_css  = "js--pub-tag--#{ tag.slug } js--pub-tag--btn pub-tag--btn ptz_btn ptz_size-13 mr5 mb5"
           basic_data = { class: tag.class.to_s, id: tag.id }
 
         - if tags.include?(tag)
@@ -26,7 +26,7 @@ ruby:
     .mb20
       - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
         ruby:
-          basic_css  = "js--pub-tag--#{ tag.slug } js--pub-tag--btn pub-tag--btn ptz--btn ptz--size-13 mr5 mb5"
+          basic_css  = "js--pub-tag--#{ tag.slug } js--pub-tag--btn pub-tag--btn ptz_btn ptz_size-13 mr5 mb5"
           basic_data = { class: tag.class.to_s, id: tag.id }
 
         - if tags.include?(tag)

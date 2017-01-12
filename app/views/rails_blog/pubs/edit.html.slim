@@ -9,62 +9,62 @@
 - if @pub.editor_type == 'ptz_editor'
   = render template: 'common/editor/ptz_editor'
 
-.ptz--theme-0.m20
-  span.mr20= link_to 'Кабинет',  cabinet_path, class: 'ptz--btn ptz--size-16'
-  span.mr20= link_to 'Просмотр', @pub, class: 'ptz--btn ptz--size-16'
-  span.mr20= link_to 'Публикации', manage_pubs_path, class: 'ptz--btn ptz--size-16'
+.ptz_theme-0.m20
+  span.mr20= link_to 'Кабинет',  cabinet_path, class: 'ptz_btn ptz_size-16'
+  span.mr20= link_to 'Просмотр', @pub, class: 'ptz_btn ptz_size-16'
+  span.mr20= link_to 'Публикации', manage_pubs_path, class: 'ptz_btn ptz_size-16'
 
 .m20
   .mb30.fs22 Редактировать Публикацию
 
   = render partial: 'notifications/form', locals: { object: @pub }
 
-  .ptz--tabs(ptz--tabs-scope='pub-edit')
-    .ptz--tabs--holder
-      .ptz--tabs--item.ptz--tabs--active(ptz--tab-id='form') Основные данные
-      .ptz--tabs--item(ptz--tab-id='storage') Файлы
-      .ptz--tabs--item(ptz--tab-id='main_image')
+  .ptz_tabs(ptz_tabs-scope='pub-edit')
+    .ptz_tabs--holder
+      .ptz_tabs--item.ptz_tabs--active(ptz_tab-id='form') Основные данные
+      .ptz_tabs--item(ptz_tab-id='storage') Файлы
+      .ptz_tabs--item(ptz_tab-id='main_image')
         | Картинки
         '
         span.js--attached-images--count
           = !(items_count = @pub.attached_images.count).zero? ? items_count : nil
 
-      .ptz--tabs--item(ptz--tab-id='hubs')
+      .ptz_tabs--item(ptz_tab-id='hubs')
         | Разделы
         '
         span.js--hubs--count
           = !(items_count = @pub.hubs.count).zero? ? items_count : nil
 
-      .ptz--tabs--item(ptz--tab-id='pub_tags')
+      .ptz_tabs--item(ptz_tab-id='pub_tags')
         | Теги
         '
         span.js--pub-tags--count
           = !(items_count = @pub.pub_tags.count).zero? ? items_count : nil
 
-      .ptz--tabs--item(ptz--tab-id='seo') SEO
-      .ptz--tabs--item(ptz--tab-id='rel-pubs') Публикации +
+      .ptz_tabs--item(ptz_tab-id='seo') SEO
+      .ptz_tabs--item(ptz_tab-id='rel-pubs') Публикации +
 
     .mt20.mb20
 
-      .ptz--tabs--content-item.ptz--tabs--active(ptz--tab-content='form')
-        .ptz--theme-0= render template: 'pubs/edit/form'
+      .ptz_tabs--content-item.ptz_tabs--active(ptz_tab-content='form')
+        .ptz_theme-0= render template: 'pubs/edit/form'
 
-      .ptz--tabs--content-item(ptz--tab-content='main_image')
-        .ptz--theme-0= render template: 'attached_images/edit/attached_images', locals: { item: @pub }
+      .ptz_tabs--content-item(ptz_tab-content='main_image')
+        .ptz_theme-0= render template: 'attached_images/edit/attached_images', locals: { item: @pub }
 
-      .ptz--tabs--content-item(ptz--tab-content='storage')
-        .ptz--theme-0= render template: 'pubs/edit/storage', locals: { item: @pub }
+      .ptz_tabs--content-item(ptz_tab-content='storage')
+        .ptz_theme-0= render template: 'pubs/edit/storage', locals: { item: @pub }
 
-      .ptz--tabs--content-item(ptz--tab-content='seo')
-        .ptz--theme-0
+      .ptz_tabs--content-item(ptz_tab-content='seo')
+        .ptz_theme-0
           .mb30= render template: 'pubs/edit/slug'
           .mb30= render template: 'meta_data/edit/meta_data', locals: { item: @pub }
 
-      .ptz--tabs--content-item(ptz--tab-content='hubs')
-        .ptz--theme-0= render template: 'pubs/edit/hubs'
+      .ptz_tabs--content-item(ptz_tab-content='hubs')
+        .ptz_theme-0= render template: 'pubs/edit/hubs'
 
-      .ptz--tabs--content-item(ptz--tab-content='pub_tags')
-        .ptz--theme-0= render template: 'pubs/edit/pub_tags', locals: { pub: @pub }
+      .ptz_tabs--content-item(ptz_tab-content='pub_tags')
+        .ptz_theme-0= render template: 'pubs/edit/pub_tags', locals: { pub: @pub }
 
-      .ptz--tabs--content-item(ptz--tab-content='rel-pubs')
+      .ptz_tabs--content-item(ptz_tab-content='rel-pubs')
         .fs15 Здесь будет можно указать связанные посты

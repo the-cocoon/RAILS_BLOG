@@ -5,18 +5,18 @@
 
 = render template: 'layouts/items/header_footer'
 
-.ptz--theme-0.m20.mt25
+.ptz_theme-0.m20.mt25
   .fs20.mb50 Разделы
 
-  .ptz--table.w100p.mb20.fs15
-    .ptz--td.vam.w40p.tal
-      span.mr20= link_to 'Новый раздел', new_hub_path, class: 'ptz--btn ptz--size-14'
-      span.mr20= link_to 'Структура разделов', tree_hubs_path, class: 'ptz--btn ptz--size-14'
+  .ptz_table.w100p.mb20.fs15
+    .ptz_td.vam.w40p.tal
+      span.mr20= link_to 'Новый раздел', new_hub_path, class: 'ptz_btn ptz_size-14'
+      span.mr20= link_to 'Структура разделов', tree_hubs_path, class: 'ptz_btn ptz_size-14'
 
-    .ptz--td.vam.tar
+    .ptz_td.vam.tar
       = render template: 'common/pages_and_reset'
 
-  table.ptz--table-0.fs16
+  table.ptz_table-0.fs16
     thead.tal
       tr
         th.p20.br-off.w50   = link_to 'ID ↕',       simple_sort_url(:id)

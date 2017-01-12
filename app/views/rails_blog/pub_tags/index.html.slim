@@ -17,7 +17,7 @@
       .fs18.mb15= alpha.chr
       .mb20
         - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
-          = link_to tag.title, tag, class: "ptz--btn ptz--size-13 mr5 mb5"
+          = link_to tag.title, tag, class: "ptz_btn ptz_size-13 mr5 mb5"
 
     .mt40.mb40.fs26 Английский алфавит
 
@@ -25,5 +25,5 @@
       .fs18.mb15= alpha.chr
       .mb20
         - glossary_array.sort{|a,b| a.title.mb_chars.downcase <=> b.title.mb_chars.downcase}.each do |tag|
-          = link_to tag.title, tag, class: "ptz--btn ptz--size-13 mr5 mb5"
+          = link_to tag.title, tag, class: "ptz_btn ptz_size-13 mr5 mb5"
 

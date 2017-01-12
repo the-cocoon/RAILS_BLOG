@@ -22,8 +22,8 @@ ruby:
   .mb15.fs15 Выбрать раздел для публикации из списка
   = select_tag :hubs_selector, hub_options, { multiple: :multiple, autocomplete: :off, class: 'pub-category-rels-select2 js--hub-rels-select2 w80p', placeholder: 'Выбрать раздел' }.merge(options)
 
-div(ptz--tabs-scope='pub-edit')
-  .ptz--theme-0
+div(ptz_tabs-scope='pub-edit')
+  .ptz_theme-0
     .mb15.fs15 Выбрать раздел для публикации
     ol.the-sortable-tree.the-sortable-tree--list(data={ max_levels: 5 })
       = sortable_tree @hubs, render_module: PubCategoryRelsManagerHelper, used_in_ids: selected_hubs_ids

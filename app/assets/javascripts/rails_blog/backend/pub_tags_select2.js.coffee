@@ -16,7 +16,7 @@
     doc = $ document
 
     @inited ||= do =>
-      doc.on 'click', '[ptz--tab-id=pub_tags]', ->
+      doc.on 'click', '[ptz_tab-id=pub_tags]', ->
         PubTagsSelect2.init()
 
     for select2 in $('.js--pub-tag-select2')
