@@ -17,8 +17,8 @@ module RailsBlog
       include ::TheStorages::Storage
       include ::FriendlyIdPack::Base
       include ::AttachedImages::ItemModel
-      include ::TheCommentsBase::Commentable
       include ::Notifications::LocalizedErrors
+      voiceless { include ::TheCommentsBase::Commentable }
 
       belongs_to :user
 
